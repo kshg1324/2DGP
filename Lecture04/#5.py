@@ -5,11 +5,11 @@ open_canvas()
 grass = load_image('grass.png')
 character = load_image('animation_sheet.png')
 
-
+Cx, Cy = 0 + 25, 90
 
 def move_to_destination(x, y):
-    Cx, Cy, frame = 0 + 25, 90, 0
-
+    frame = 0
+    global Cx, Cy
 
     while (x > Cx):
         clear_canvas_now()
@@ -60,6 +60,5 @@ while True:
     move_to_destination(682, 336)
     move_to_destination(712, 349)
     move_to_destination(0 + 25, 90)
-
 
 close_canvas()
