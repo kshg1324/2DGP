@@ -50,7 +50,16 @@ def move_to_destination(x, y):
 
 while True:
     move_to_destination(203, 535)
-
+    move_to_destination(132, 243)
+    move_to_destination(535, 470)
+    move_to_destination(477, 203)
+    move_to_destination(715, 136)
+    move_to_destination(316, 225)
+    move_to_destination(510, 92)
+    move_to_destination(692, 518)
+    move_to_destination(682, 336)
+    move_to_destination(712, 349)
+    move_to_destination(0 + 25, 90)
 
 
 close_canvas()
