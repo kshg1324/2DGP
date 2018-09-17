@@ -18,7 +18,7 @@ def move_to_destination(x, y):
         update_canvas()
         frame = (frame + 1) % 8
         Cx += 1
-        delay(0.01)
+        delay(0.001)
         get_events()
 
     while (y > Cy):
@@ -28,7 +28,7 @@ def move_to_destination(x, y):
         update_canvas()
         frame = (frame + 1) % 8
         Cy += 1
-        delay(0.01)
+        delay(0.001)
         get_events()
 
     while (x < Cx):
@@ -38,7 +38,7 @@ def move_to_destination(x, y):
         update_canvas()
         frame = (frame + 1) % 8
         Cx -= 1
-        delay(0.01)
+        delay(0.001)
         get_events()
 
     while (y < Cy):
@@ -48,7 +48,7 @@ def move_to_destination(x, y):
         update_canvas()
         frame = (frame + 1) % 8
         Cy -= 1
-        delay(0.01)
+        delay(0.001)
         get_events()
 
 
