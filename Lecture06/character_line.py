@@ -14,6 +14,8 @@ def draw_line():
     global frame
     for j in range(0, size):
         for i in range(0, 100 + 1, 2):
+            clear_canvas()
+            KPU_GROUND.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
             t = i / 100
             if j != size - 1:
                 x = (1 - t) * (points[j])[0] + t * (points[j+1])[0]
