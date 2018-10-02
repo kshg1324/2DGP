@@ -11,7 +11,9 @@ points = [(random.randint(0, 1280), random.randint(0, 1080)) for i in range(size
 
 def draw_line():
     global frame
+
     for j in range(0, size):
+        prev_x = 0
         for i in range(0, 100 + 1, 2):
             clear_canvas()
             KPU_GROUND.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
@@ -23,7 +25,11 @@ def draw_line():
                 x = (1 - t) * (points[j])[0] + t * (points[0])[0]
                 y = (1 - t) * (points[j])[1] + t * (points[0])[1]
 
-            character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+            if prev_x > x:
+                character.clip_draw(frame * 100, 0 * 1, 100, 100, x, y)
+            elif prev_x <= x:
+                character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+            prev_x = x
             frame = (frame + 1) % 8
             delay(0.03)
             update_canvas()
