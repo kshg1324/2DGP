@@ -23,7 +23,7 @@ def draw_line():
                 x = (1 - t) * (points[j])[0] + t * (points[0])[0]
                 y = (1 - t) * (points[j])[1] + t * (points[0])[1]
 
-
+            character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
             frame = (frame + 1) % 8
             delay(0.03)
             update_canvas()
