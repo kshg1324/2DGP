@@ -29,6 +29,7 @@ def draw_line():
                 character.clip_draw(frame * 100, 0 * 1, 100, 100, x, y)
             elif prev_x <= x:
                 character.clip_draw(frame * 100, 100 * 1, 100, 100, x, y)
+                
             prev_x = x
             frame = (frame + 1) % 8
             delay(0.03)
