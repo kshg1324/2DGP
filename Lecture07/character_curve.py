@@ -80,12 +80,12 @@ def draw_linked_curve_10_points():
         get_events()
 
     # draw p1-p2
-    for i in range(50, 100, 2):
+    for i in range(0, 100, 2):
         clear_canvas()
         KPU_GROUND.draw(KPU_WIDTH // 2, KPU_HEIGHT // 2)
         t = i / 100
-        x = (2*t**2-3*t+1)*points[8][0]+(-4*t**2+4*t)*points[9][0]+(2*t**2-t)*points[0][0]
-        y = (2*t**2-3*t+1)*points[8][1]+(-4*t**2+4*t)*points[9][1]+(2*t**2-t)*points[0][1]
+        x = ((-t ** 3 + 2 * t ** 2 - t) * (points[8])[0] + (3 * t ** 3 - 5 * t ** 2 + 2) *(points[9])[0] + (-3 * t ** 3 + 4 * t ** 2 + t) * (points[0])[0] + (t ** 3 - t ** 2) * points[1][0]) / 2
+        y = ((-t ** 3 + 2 * t ** 2 - t) * (points[8])[1] + (3 * t ** 3 - 5 * t ** 2 + 2) *(points[9])[1] + (-3 * t ** 3 + 4 * t ** 2 + t) * (points[0])[1] + (t ** 3 - t ** 2) * points[1][1]) / 2
         if prev_x > x:
             character.clip_draw(frame * 100, 0 * 1, 100, 100, x, y)
         elif prev_x <= x:
