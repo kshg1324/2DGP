@@ -3,7 +3,7 @@ import random
 
 class Boy:
     def __init__(self):
-        self.x, self.y = 0, 90
+        self.x, self.y = random.randint(0,800), 90
         self.frame = random.randint(0, 7)
         self.image = load_image('run_animation.png')
 
@@ -46,7 +46,8 @@ def handle_events():
 
 open_canvas()
 
-boy = Boy()
+#boy = Boy()
+team = [Boy() for i in range(11)]
 grass = Grass()
 
 running = True
@@ -54,10 +55,12 @@ running = True
 
 while running:
     handle_events ()
-    boy.update ()
+    for boy in team:
+        boy.update()
     clear_canvas ()
     grass.draw ()
-    boy.draw ()
+    for boy in team:
+        boy.draw()
     update_canvas ()
     delay(0.05)
 # game main loop code
