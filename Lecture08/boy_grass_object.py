@@ -20,19 +20,19 @@ class Grass:
 
 class Smallball:
     def __init__(self):
-        self.x, self.y = random.randint(0,800), 600
+        self.x, self.y, self.speed = random.randint(0, 800), 600, random.randint(1, 10)
         self.image = load_image('ball21x21.png')
     def update(self):
-        self.y -= random.randint(0,5)
+        self.y -= self.speed
     def draw(self):
         self.image.draw(self.x, self.y)
 
 class Bigball:
     def __init__(self):
-        self.x, self.y = random.randint(0,800), 600
+        self.x, self.y,self.speed = random.randint(0,800), 600,random.randint(1,10)
         self.image = load_image('ball41x41.png')
     def update(self):
-        self.y -= random.randint(0, 5)
+        self.y -= self.speed
     def draw(self):
         self.image.draw(self.x, self.y)
 
@@ -64,12 +64,16 @@ while running:
         boy.update()
     for smallball in smallballs:
         smallball.update()
+    for bigball in bigballs:
+        bigball.update()
     clear_canvas ()
     grass.draw ()
     for boy in team:
         boy.draw()
     for smallball in smallballs:
         smallball.draw()
+    for bigball in bigballs:
+        bigball.draw()
     update_canvas ()
     delay(0.05)
 # game main loop code
