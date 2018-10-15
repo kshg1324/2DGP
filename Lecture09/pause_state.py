@@ -19,12 +19,13 @@ font = None
 
 class Pause:
     def __init__(self):
-        self.frame = 0
+        self.count = 0
         self.image = load_image('pause.png')
     def update(self):
-        self.frame = (self.frame + 1) % 2
+        self.count = (self.count + 1) % 100
     def draw(self):
-        self.image.clip_draw(self.frame * 100, 0, 90, 90, 400, 300)
+        if(self.count <= 50):
+            self.image.draw(400, 300)
 
 def enter():
     global pause
