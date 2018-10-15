@@ -22,7 +22,7 @@ class Pause:
         self.image = load_image('pause.png')
 
     def draw(self):
-        self.image.draw(800, 600)
+        self.image.draw(400, 300)
 
 def enter():
     global pause
