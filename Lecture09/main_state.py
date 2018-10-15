@@ -30,7 +30,7 @@ class Boy:
     def __init__(self):
         self.x, self.y = 0, 90
         self.frame = 0
-        self.image = load_image('run_animation.png')
+        self.image = load_image('animation_sheet.png')
         self.dir = 1
 
     def update(self):
@@ -42,8 +42,10 @@ class Boy:
             self.dir = 1
 
     def draw(self):
-        self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
-
+        if(self.dir == 1):
+            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
+        elif(self.dir == -1):
+            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
 def enter():
     global boy, grass
     boy = Boy()
@@ -70,7 +72,7 @@ def handle_events():
         elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
         elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
-            game_framework.change_state(pause_state)
+            game_framework.push_state(pause_state)
 
 
 def update():
