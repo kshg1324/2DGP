@@ -15,53 +15,23 @@ boy = None
 grass = None
 font = None
 
-class Grass:
-    def __init__(self):
-        self.image = load_image('grass.png')
 
-    def draw(self):
-        self.image.draw(400, 30)
-
-
-
-class Boy:
-    def __init__(self):
-        self.x, self.y = 0, 90
-        self.frame = 0
-        self.image = load_image('animation_sheet.png')
-        self.dir = 1
-
-    def update(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += self.dir
-        if self.x >= 800:
-            self.dir = -1
-        elif self.x <= 0:
-            self.dir = 1
-
-    def draw(self):
-        if(self.dir == 1):
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
-        elif(self.dir == -1):
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
 
 class Pause:
     def __init__(self):
+        self.frame = 0
         self.image = load_image('pause.png')
-
+    def update(self):
+        self.frame = (self.frame + 1) % 2
     def draw(self):
-        self.image.draw(400, 300)
+        self.image.clip_draw(self.frame * 100, 0, 90, 90, 400, 300)
 
 def enter():
-    global grass, boy, pause
-    grass = Grass()
-    boy = Boy()
+    global pause
     pause = Pause()
 
 def exit():
-    global grass, boy, pause
-    del(grass)
-    del(boy)
+    global pause
     del(pause)
 
 
@@ -83,13 +53,13 @@ def handle_events():
 
 
 def update():
-    pass
+    pause.update()
 
 
 def draw():
     clear_canvas()
-    grass.draw()
-    boy.draw()
+    main_state.grass.draw()
+    main_state.boy.draw()
     pause.draw()
     update_canvas()
 
