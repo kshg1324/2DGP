@@ -10,7 +10,7 @@ PIXEL_PER_METER = 0
 RUN_SPEED_KMPH = 0
 RUN_SPEED_MPM = 0
 RUN_SPEED_MPS = 0
-RUN_SPEED_PPS = 0
+RUN_SPEED_PPS = 1
 
 # Boy Action Speed
 # fill expressions correctly
@@ -21,7 +21,7 @@ FRAMES_PER_ACTION = 0
 
 
 # Boy Event
-RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SLEEP_TIMER, SPACE, LSHIFT_DOWN, LSHIFT_UP, RSHIFT_DOWN, RSHIFT_UP = range(10)
+RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SLEEP_TIMER, SPACE, LSHIFT_DOWN, LSHIFT_UP, RSHIFT_DOWN, RSHIFT_UP, DASH_TIMER = range(11)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -32,7 +32,7 @@ key_event_table = {
     (SDL_KEYDOWN, SDLK_LSHIFT): LSHIFT_DOWN,
     (SDL_KEYDOWN, SDLK_RSHIFT): RSHIFT_DOWN,
     (SDL_KEYUP, SDLK_LSHIFT): LSHIFT_UP,
-    (SDL_KEYUP, SDLK_LSHIFT): RSHIFT_UP
+    (SDL_KEYUP, SDLK_RSHIFT): RSHIFT_UP
 }
 
 
@@ -56,11 +56,11 @@ class IdleState:
     def exit(boy, event):
         if event == SPACE:
             boy.fire_ball()
-        pass
 
     @staticmethod
     def do(boy):
-        boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        #boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        boy.frame = (boy.frame + 1) % 8
         boy.timer -= 1
         if boy.timer == 0:
             boy.add_event(SLEEP_TIMER)
@@ -130,21 +130,36 @@ class SleepState:
 
 class DashState:
 
-    @staticmethod
     def enter(boy, event):
-        boy.velocity += RUN_SPEED_PPS * 2
-
+        #RUN_SPEED_PPS = 3
+        if event == RIGHT_DOWN:
+            boy.velocity += 1
+        elif event == LEFT_DOWN:
+            boy.velocity -= 1
+        elif event == RIGHT_UP:
+            boy.velocity -= 1
+        elif event == LEFT_UP:
+            boy.velocity += 1
+        boy.dir = boy.velocity
+        boy.timer_for_Dash = 150
     @staticmethod
     def exit(boy, event):
-        pass
+        if event == SPACE:
+            boy.fire_ball()
+
 
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + 1) % 8
+        boy.timer_for_Dash -= 1
+        if boy.timer_for_Dash == 0: 
+            boy.add_event(DASH_TIMER)
+        boy.x += boy.velocity * 3
+        boy.x = clamp(25, boy.x, 1600 - 25)
 
     @staticmethod
     def draw(boy):
-        if boy.dir == 1:
+        if boy.dir >= 1:
             boy.image.clip_draw(int(boy.frame) * 100, 100, 100, 100, boy.x, boy.y)
         else:
             boy.image.clip_draw(int(boy.frame) * 100, 0, 100, 100, boy.x, boy.y)
@@ -152,11 +167,12 @@ class DashState:
 
 
 
+
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER: SleepState, SPACE: IdleState,LSHIFT_UP: IdleState, RSHIFT_UP: IdleState, LSHIFT_DOWN: IdleState, RSHIFT_DOWN: IdleState},
-    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE: RunState, LSHIFT_DOWN: DashState, RSHIFT_DOWN: DashState},
-    SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_UP: RunState, SPACE: IdleState},
-    DashState: {LSHIFT_UP: RunState, RSHIFT_UP: RunState, RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, RIGHT_UP: DashState, LEFT_UP: DashState, RIGHT_DOWN: DashState, LEFT_DOWN: DashState}
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER: SleepState, SPACE: IdleState, LSHIFT_DOWN: IdleState, RSHIFT_DOWN: IdleState, LSHIFT_UP: IdleState, RSHIFT_UP: IdleState},
+    RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE: RunState, LSHIFT_DOWN: DashState, RSHIFT_DOWN: DashState, LSHIFT_UP: RunState, RSHIFT_UP: RunState},
+    SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_UP: RunState, SPACE: IdleState, LSHIFT_UP: IdleState, RSHIFT_UP: IdleState, LSHIFT_DOWN: IdleState, RSHIFT_DOWN: IdleState},
+    DashState: { LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, RIGHT_UP: IdleState, LEFT_UP: IdleState, SPACE: DashState, LSHIFT_DOWN: RunState, RSHIFT_DOWN: RunState, LSHIFT_UP: RunState, RSHIFT_UP: RunState, DASH_TIMER: RunState}
 }
 
 class Boy:
