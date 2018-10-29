@@ -132,7 +132,7 @@ class DashState:
 
     @staticmethod
     def enter(boy, event):
-        boy.velocity = RUN_SPEED_PPS * 2
+        boy.velocity += RUN_SPEED_PPS * 2
 
     @staticmethod
     def exit(boy, event):
@@ -153,10 +153,10 @@ class DashState:
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER: SleepState, SPACE: IdleState},
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER: SleepState, SPACE: IdleState,LSHIFT_UP: IdleState, RSHIFT_UP: IdleState, LSHIFT_DOWN: IdleState, RSHIFT_DOWN: IdleState},
     RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE: RunState, LSHIFT_DOWN: DashState, RSHIFT_DOWN: DashState},
     SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_UP: RunState, SPACE: IdleState},
-    DashState: {LSHIFT_UP: RunState, RSHIFT_UP: RunState, RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState}
+    DashState: {LSHIFT_UP: RunState, RSHIFT_UP: RunState, RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, RIGHT_UP: DashState, LEFT_UP: DashState, RIGHT_DOWN: DashState, LEFT_DOWN: DashState}
 }
 
 class Boy:
