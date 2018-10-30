@@ -4,15 +4,24 @@ from ball import Ball
 
 import game_world
 import time
+import math
 
 # Boy Run Speed
 # fill expressions correctly
-PIXEL_PER_METER = (10.0 / 0.3)
+PIXEL_PER_METER_X = (10.0 / 0.3)
+PIXEL_PER_METER_Y = (72.0 / 2.2)
+PIXEL_PER_METER_CIRCLE = ( 1/3 * 314.1592 / 3.141592 / 6)
+
 RUN_SPEED_KMPH = 20.0
 RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
 RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER_X)
+RUN_SPEED_PPS_Y = (RUN_SPEED_MPS * PIXEL_PER_METER_Y)
 
+DRAW_SPEED_KMPH = 2 * 3.141592
+DRAW_SPEED_MPM = (DRAW_SPEED_KMPH * 1000.0 / 60.0)
+DRAW_SPEED_MPS =  (DRAW_SPEED_MPM / 60.0)
+DRAW_SPEED_PPS = (DRAW_SPEED_MPS * PIXEL_PER_METER_CIRCLE)
 # Boy Action Speed
 # fill expressions correctly
 TIME_PER_ACTION = 0.5
@@ -20,9 +29,10 @@ ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
 COUNT = 0
+Revise_Value = 0
 
 # Boy Event
-RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SLEEP_TIMER, SPACE, LSHIFT_DOWN, LSHIFT_UP, RSHIFT_DOWN, RSHIFT_UP, DASH_TIMER = range(11)
+RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SLEEP_TIMER, GHOST_TIMER, SPACE, LSHIFT_DOWN, LSHIFT_UP, RSHIFT_DOWN, RSHIFT_UP, DASH_TIMER = range(12)
 
 key_event_table = {
     (SDL_KEYDOWN, SDLK_RIGHT): RIGHT_DOWN,
@@ -44,10 +54,10 @@ class IdleState:
 
     @staticmethod
     def enter(boy, event):
-        global COUNT
+        global COUNT, Revise_Value
         boy.Start_Time = get_time()
         if COUNT == 0:
-            boy.Revise_Value = boy.Start_Time
+            Revise_Value = boy.Start_Time
             COUNT = COUNT + 1
         if event == RIGHT_DOWN:
             boy.velocity += RUN_SPEED_PPS
@@ -69,9 +79,9 @@ class IdleState:
         boy.Ticking_Time = get_time()
         print("Start Time: %f sec" % (boy.Start_Time))
         print("Ticking Time: %f sec" % (boy.Ticking_Time))
-        print("Revise Value: %f sec" % (boy.Revise_Value))
-        if boy.Ticking_Time - boy.Start_Time >= 10 - boy.Revise_Value:
-            boy.add_event(SLEEP_TIMER)
+        print("Revise Value: %f sec" % (Revise_Value))
+        if boy.Ticking_Time - boy.Start_Time >= 10:
+            boy.add_event(GHOST_TIMER)
 
     @staticmethod
     def draw(boy):
@@ -119,6 +129,31 @@ class SleepState:
     @staticmethod
     def enter(boy, event):
         boy.frame = 0
+        boy.radian = 3.141592 / 2
+    @staticmethod
+    def exit(boy, event):
+        pass
+
+    @staticmethod
+    def do(boy):
+        if boy.radian > 0:
+            boy.radian = (boy.radian - game_framework.frame_time)
+        boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+    @staticmethod
+    def draw(boy):
+        if boy.dir == 1:
+            boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, 3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
+        else:
+            boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
+
+class GhostState:
+
+    @staticmethod
+    def enter(boy, event):
+        boy.frame = 0
+        boy.radian_ghost = 3.141592 / 2
+        boy.Float_Y = 0
+        boy.radian_circle = 0
 
     @staticmethod
     def exit(boy, event):
@@ -126,14 +161,28 @@ class SleepState:
 
     @staticmethod
     def do(boy):
-        boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
+        #boy.radian_circle +=  4 * 3.141592 * boy.Ticking_Time
+        boy.Ticking_Time = get_time()
+        if boy.Float_Y < 300:
+            boy.Float_Y += RUN_SPEED_PPS_Y * game_framework.frame_time
+        if boy.radian_ghost > 0:
+            boy.radian_ghost = (boy.radian_ghost - game_framework.frame_time)
 
+
+        boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
     @staticmethod
     def draw(boy):
         if boy.dir == 1:
+            boy.image.opacify(1)
             boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, 3.141592 / 2, '', boy.x - 25, boy.y - 25, 100, 100)
+            boy.image.opacify(0.5)
+            boy.image.clip_composite_draw(int(boy.frame) * 100, 300, 100, 100, boy.radian_ghost, '', boy.x - 25 + 100 * math.cos( 4 * 3.141592 * boy.Ticking_Time), boy.y + boy.Float_Y - 25 + 100 * math.sin( 4 * 3.141592 * boy.Ticking_Time), 100, 100)
+            boy.image.opacify(1.0)
         else:
             boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, -3.141592 / 2, '', boy.x + 25, boy.y - 25, 100, 100)
+            boy.image.opacify(0.5)
+            boy.image.clip_composite_draw(int(boy.frame) * 100, 200, 100, 100, boy.radian_ghost, '',boy.x + 25 + 100 * math.cos(4 * 3.141592 * boy.Ticking_Time),boy.y + boy.Float_Y - 25 + 100 * math.sin(4 * 3.141592 * boy.Ticking_Time),100, 100)
+            boy.image.opacify(1.0)
 
 class DashState:
 
@@ -175,10 +224,11 @@ class DashState:
 
 
 next_state_table = {
-    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER: SleepState, SPACE: IdleState, LSHIFT_DOWN: IdleState, RSHIFT_DOWN: IdleState, LSHIFT_UP: IdleState, RSHIFT_UP: IdleState},
+    IdleState: {RIGHT_UP: RunState, LEFT_UP: RunState, RIGHT_DOWN: RunState, LEFT_DOWN: RunState, SLEEP_TIMER: SleepState,GHOST_TIMER: GhostState, SPACE: IdleState, LSHIFT_DOWN: IdleState, RSHIFT_DOWN: IdleState, LSHIFT_UP: IdleState, RSHIFT_UP: IdleState},
     RunState: {RIGHT_UP: IdleState, LEFT_UP: IdleState, LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, SPACE: RunState, LSHIFT_DOWN: DashState, RSHIFT_DOWN: DashState, LSHIFT_UP: RunState, RSHIFT_UP: RunState},
     SleepState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_UP: RunState, SPACE: IdleState, LSHIFT_UP: IdleState, RSHIFT_UP: IdleState, LSHIFT_DOWN: IdleState, RSHIFT_DOWN: IdleState},
-    DashState: { LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, RIGHT_UP: IdleState, LEFT_UP: IdleState, SPACE: DashState, LSHIFT_DOWN: RunState, RSHIFT_DOWN: RunState, LSHIFT_UP: RunState, RSHIFT_UP: RunState, DASH_TIMER: RunState}
+    DashState: { LEFT_DOWN: IdleState, RIGHT_DOWN: IdleState, RIGHT_UP: IdleState, LEFT_UP: IdleState, SPACE: DashState, LSHIFT_DOWN: RunState, RSHIFT_DOWN: RunState, LSHIFT_UP: RunState, RSHIFT_UP: RunState, DASH_TIMER: RunState},
+    GhostState: {LEFT_DOWN: RunState, RIGHT_DOWN: RunState, LEFT_UP: RunState, RIGHT_UP: RunState, SPACE: IdleState, LSHIFT_UP: IdleState, RSHIFT_UP: IdleState, LSHIFT_DOWN: IdleState, RSHIFT_DOWN: IdleState}
 }
 
 class Boy:
@@ -213,8 +263,9 @@ class Boy:
             self.cur_state.enter(self, event)
 
     def draw(self):
+        global Revise_Value
         self.cur_state.draw(self)
-        self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % get_time(), (255, 255, 0))
+        self.font.draw(self.x - 60, self.y + 50, '(Time: %3.2f)' % (get_time() - Revise_Value), (255, 255, 0))
 
     def handle_event(self, event):
         if (event.type, event.key) in key_event_table:
