@@ -19,6 +19,7 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
+COUNT = 0
 
 # Boy Event
 RIGHT_DOWN, LEFT_DOWN, RIGHT_UP, LEFT_UP, SLEEP_TIMER, SPACE, LSHIFT_DOWN, LSHIFT_UP, RSHIFT_DOWN, RSHIFT_UP, DASH_TIMER = range(11)
@@ -40,10 +41,14 @@ key_event_table = {
 
 class IdleState:
 
+
     @staticmethod
     def enter(boy, event):
+        global COUNT
         boy.Start_Time = get_time()
-        
+        if COUNT == 0:
+            boy.Revise_Value = boy.Start_Time
+            COUNT = COUNT + 1
         if event == RIGHT_DOWN:
             boy.velocity += RUN_SPEED_PPS
         elif event == LEFT_DOWN:
@@ -64,7 +69,8 @@ class IdleState:
         boy.Ticking_Time = get_time()
         print("Start Time: %f sec" % (boy.Start_Time))
         print("Ticking Time: %f sec" % (boy.Ticking_Time))
-        if boy.Ticking_Time - boy.Start_Time >= 10:
+        print("Revise Value: %f sec" % (boy.Revise_Value))
+        if boy.Ticking_Time - boy.Start_Time >= 10 - boy.Revise_Value:
             boy.add_event(SLEEP_TIMER)
 
     @staticmethod
@@ -97,7 +103,6 @@ class RunState:
     @staticmethod
     def do(boy):
         boy.frame = (boy.frame + FRAMES_PER_ACTION * ACTION_PER_TIME * game_framework.frame_time) % 8
-        boy.timer -= 1
         boy.x += boy.velocity * game_framework.frame_time
         boy.x = clamp(25, boy.x, 1600 - 25)
 
