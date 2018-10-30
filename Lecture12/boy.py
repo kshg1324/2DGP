@@ -22,6 +22,7 @@ DRAW_SPEED_KMPH = 2 * 3.141592
 DRAW_SPEED_MPM = (DRAW_SPEED_KMPH * 1000.0 / 60.0)
 DRAW_SPEED_MPS =  (DRAW_SPEED_MPM / 60.0)
 DRAW_SPEED_PPS = (DRAW_SPEED_MPS * PIXEL_PER_METER_CIRCLE)
+
 # Boy Action Speed
 # fill expressions correctly
 TIME_PER_ACTION = 0.5
@@ -46,9 +47,8 @@ key_event_table = {
     (SDL_KEYUP, SDLK_RSHIFT): RSHIFT_UP
 }
 
-
 # Boy States
-
+############
 class IdleState:
 
 
