@@ -12,17 +12,81 @@ import pause_state
 name = "MainState"
 
 boy = None
-grass = None
+floor = None
+burner = None
+refrig = None
+sink = None
+cabinet = None
+kitchen_floor = None
 font = None
 logo_time = 0.0
 
 
-class Grass:
+class Floor:
     def __init__(self):
-        self.image = load_image('grass.png')
+        self.image = load_image('floor.png')
 
     def draw(self):
-        self.image.draw(400, 30)
+        for i in range(8):
+            for j in range(3):
+                self.image.draw(50 + 100 * i, 50 + 100 * j)
+
+class Kitchen_Floor:
+    def __init__(self):
+        self.image = load_image('floor3.png')
+
+    def draw(self):
+        for i in range(8):
+            self.image.draw(50 + 100 * i, 50 + 100 * 3)
+
+class Burner:
+    def __init__(self):
+        self.image1 = load_image('burner.png')
+        self.image2 = load_image('stove.png')
+    def draw(self):
+        self.image1.draw(50 + 100 * 4, 25 + 100 * 4)
+        self.image2.draw(50 + 100 * 4, 75 + 100 * 4)
+
+class Refrig:
+    def __init__(self):
+        self.image1 = load_image('refrig.png')
+        self.image2 = load_image('mini_refrig.png')
+    def draw(self):
+        self.image1.draw(50 + 100 * 2, 50 + 100 * 4)
+        self.image2.draw(25 + 100 * 5, 50 + 100 * 4)
+        self.image2.draw(75 + 100 * 5, 50 + 100 * 4)
+
+class Sink:
+    def __init__(self):
+        self.image1 = load_image('cabinet2_under.png')
+        self.image2 = load_image('sink.png')
+
+    def draw(self):
+        self.image1.draw(50 + 100 * 3, 25 + 100 * 4)
+        self.image2.draw(50 + 100 * 3, 75 + 100 * 4)
+
+class Cabinet:
+    def __init__(self):
+        self.image1 = load_image('cabinet2_under.png')
+        self.image2 = load_image('cabinet2_above.png')
+    def draw(self):
+        for i in range(2):
+            self.image1.draw(50 + 100 * i, 25 + 100 * 4)
+            self.image2.draw(50 + 100 * i, 75 + 100 * 4)
+        self.image1.draw(50 + 100 * 6, 25 + 100 * 4)
+        self.image2.draw(50 + 100 * 6, 75 + 100 * 4)
+        self.image1.draw(50 + 100 * 7, 25 + 100 * 4)
+        self.image2.draw(50 + 100 * 7, 75 + 100 * 4)
+
+class Wall:
+    def __init__(self):
+        self.image1 = load_image('wall_under.png')
+        self.image2 = load_image('wall_above.png')
+
+    def draw(self):
+        for i in range(8):
+            self.image1.draw(50 + 100 * i, 12.5 + 100 * 3)
+            self.image2.draw(50 + 100 * i, 37.5 + 100 * 3)
 
 
 
@@ -49,14 +113,24 @@ class Boy:
 
 
 def enter():
-    global boy, grass
+    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall
     boy = Boy()
-    grass = Grass()
-
+    floor = Floor()
+    burner = Burner()
+    refrig = Refrig()
+    sink = Sink()
+    kitchen_floor = Kitchen_Floor()
+    cabinet = Cabinet()
+    wall = Wall()
 def exit():
-    global boy, grass
+    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall
     del(boy)
-    del(grass)
+    del(floor)
+    del(burner)
+    del(refrig)
+    del(sink)
+    del(cabinet)
+    del(wall)
 
 def pause():
     pass
@@ -83,7 +157,13 @@ def update():
 
 def draw():
     clear_canvas()
-    grass.draw()
+    floor.draw()
+    burner.draw()
+    refrig.draw()
+    sink.draw()
+    cabinet.draw()
+    kitchen_floor.draw()
+    wall.draw()
     boy.draw()
     update_canvas()
 
