@@ -12,7 +12,7 @@ CY = 0
 
 def enter():
     global image, image2, image3
-    image = load_image('title.png')
+    image = load_image('main2.png')
     image2 = load_image('game_start.png')
     image3 = load_image('game_quit.png')
 
@@ -37,18 +37,18 @@ def handle_events():
             if(event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
             if event.type == SDL_MOUSEBUTTONDOWN:
-                if (350 <= CX <= 450 and 285 <= CY <= 315):
+                if (150 <= CX <= 250 and 35 <= CY <= 65):
                     game_framework.change_state(main_state)
             if event.type == SDL_MOUSEBUTTONDOWN:
-                if (350 <= CX <= 450 and 235 <= CY <= 265):
+                if (550 <= CX <= 650 and 35 <= CY <= 65):
                     game_framework.quit()
 
 
 def draw():
     clear_canvas()
     image.draw(400 ,300)
-    image2.draw(400,300)
-    image3.draw(400,250)
+    image2.draw(200,50)
+    image3.draw(600,50)
     update_canvas()
 
 

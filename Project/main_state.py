@@ -6,6 +6,13 @@ from pico2d import *
 
 import game_framework
 import title_state
+import cooking_1_state
+import cooking_2_state
+import cooking_3_state
+import cooking_4_state
+import cooking_5_state
+import cooking_6_state
+
 import pause_state
 
 
@@ -18,9 +25,17 @@ refrig = None
 sink = None
 cabinet = None
 kitchen_floor = None
+frame = None
 font = None
-logo_time = 0.0
-
+Money = 100
+Left_time = 300
+life = 3
+food_1_stack = 0
+food_2_stack = 0
+food_3_stack = 0
+food_4_stack = 0
+food_5_stack = 0
+food_6_stack = 0
 
 class Floor:
     def __init__(self):
@@ -88,33 +103,65 @@ class Wall:
             self.image1.draw(50 + 100 * i, 12.5 + 100 * 3)
             self.image2.draw(50 + 100 * i, 37.5 + 100 * 3)
 
-
-
-class Boy:
+class Frame:
     def __init__(self):
-        self.x, self.y = 0, 90
-        self.frame = 0
-        self.image = load_image('animation_sheet.png')
-        self.dir = 1
-
-    def update(self):
-        self.frame = (self.frame + 1) % 8
-        self.x += self.dir
-        if self.x >= 800:
-            self.dir = -1
-        elif self.x <= 0:
-            self.dir = 1
+        global Money
+        self.image1 = load_image('frame2.png')
+        self.image2 = load_image('menu.png')
+        self.image3 = load_image('life_3.png')
+        self.image4 = load_image('life_2.png')
+        self.image5 = load_image('life_1.png')
+        self.image6 = load_image('life_0.png')
+        self.image7 = load_image('life.png')
+        self.image8 = load_image('clock.png')
+        self.image9 = load_image('money.png')
+        self.font = load_font('ENCR10B.TTF', 16)
 
     def draw(self):
-        if(self.dir == 1):
-            self.image.clip_draw(self.frame * 100, 100, 100, 100, self.x, self.y)
-        elif(self.dir == -1):
-            self.image.clip_draw(self.frame * 100, 0, 100, 100, self.x, self.y)
+
+        self.image2.clip_draw(100 * 0, 100 * 6, 100, 100 , 50 + 100 * 0, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 0, 100 * 0, 100, 100 , 50 + 100 * 1, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 5, 100 * 4, 100, 100 , 50 + 100 * 2, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 2, 100 * 3, 100, 100 , 50 + 100 * 3, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 2, 100 * 5, 100, 100 , 50 + 100 * 4, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 2, 100 * 4, 100, 100 , 50 + 100 * 5, 50 + 100 * 5)
+        if life == 3:
+            self.image3.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
+        elif life == 2:
+            self.image4.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
+        elif life == 1:
+            self.image5.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
+        #self.image3.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
+        self.image7.draw(50 + 100 * 6 - 5, 16.5 + 100 * 5 )
+        self.image8.draw(50 + 100 * 6 - 5, 49.5 + 100 * 5 )
+        self.image9.draw(50 + 100 * 6 - 5, 82.5 + 100 * 5 )
+        self.image1.draw(100 * 4, 50 + 100 * 5)
+        self.font.draw(25 + 100 * 7 -10,  49.5 + 100 * 5 , '(%3.2f)' % (Left_time - get_time()), (0, 0, 0))
+        self.font.draw(25 + 100 * 7 - 10, 82.5  + 100 * 5 , '(%3.2f)' % (Money), (0, 0, 0))
+
+        self.font.draw(50 + 100 * 0 + 20, 50 + 100 * 5 - 30 , '(%d)' % (food_1_stack), (0, 0, 0))
+        self.font.draw(50 + 100 * 1 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_2_stack), (0, 0, 0))
+        self.font.draw(50 + 100 * 2 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_3_stack), (0, 0, 0))
+        self.font.draw(50 + 100 * 3 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_4_stack), (0, 0, 0))
+        self.font.draw(50 + 100 * 4 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_5_stack), (0, 0, 0))
+        self.font.draw(50 + 100 * 5 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_6_stack), (0, 0, 0))
+        #self.image1.draw(100 * 4, 50 + 100 * 5)
+        #self.image1.draw(100 * 4, 50 + 100 * 5)
+        #character.clip_draw(frame * 100, 0 * 1, 100, 100, x, y)
+
+class Table:
+    def __init__(self):
+        self.image = load_image('table.png')
+
+    def draw(self):
+        for i in range(3):
+            for j in range(2):
+                self.image.draw(100 + 300 * i, 75 + 150 * j)
+
 
 
 def enter():
-    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall
-    boy = Boy()
+    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table
     floor = Floor()
     burner = Burner()
     refrig = Refrig()
@@ -122,15 +169,19 @@ def enter():
     kitchen_floor = Kitchen_Floor()
     cabinet = Cabinet()
     wall = Wall()
+    frame = Frame()
+    table = Table()
 def exit():
-    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall
-    del(boy)
+    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table
     del(floor)
     del(burner)
     del(refrig)
     del(sink)
+    del (kitchen_floor)
     del(cabinet)
     del(wall)
+    del(frame)
+    del(table)
 
 def pause():
     pass
@@ -145,17 +196,36 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
+        if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
             game_framework.change_state(title_state)
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
+        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_q):
+            # game_framework.change_state(cooking_state)
+            game_framework.push_state(cooking_1_state)
+        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_w):
+            # game_framework.change_state(cooking_state)
+            game_framework.push_state(cooking_2_state)
+        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_e):
+            # game_framework.change_state(cooking_state)
+            game_framework.push_state(cooking_3_state)
+        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_r):
+            # game_framework.change_state(cooking_state)
+            game_framework.push_state(cooking_4_state)
+        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_t):
+            # game_framework.change_state(cooking_state)
+            game_framework.push_state(cooking_5_state)
+        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_y):
+            # game_framework.change_state(cooking_state)
+            game_framework.push_state(cooking_6_state)
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
 
 
 def update():
-    boy.update()
+    pass
 
 
 def draw():
+
     clear_canvas()
     floor.draw()
     burner.draw()
@@ -164,7 +234,8 @@ def draw():
     cabinet.draw()
     kitchen_floor.draw()
     wall.draw()
-    boy.draw()
+    frame.draw()
+    table.draw()
     update_canvas()
 
 

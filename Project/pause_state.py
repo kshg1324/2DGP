@@ -2,17 +2,12 @@ import random
 import json
 import os
 
-from pico2d import *
-
 import game_framework
 import main_state
-
-
+from pico2d import *
 
 name = "PauseState"
 
-boy = None
-grass = None
 font = None
 
 
@@ -60,8 +55,15 @@ def update():
 
 def draw():
     clear_canvas()
-    main_state.grass.draw()
-    main_state.boy.draw()
+    main_state.floor.draw()
+    main_state.burner.draw()
+    main_state.refrig.draw()
+    main_state.sink.draw()
+    main_state.cabinet.draw()
+    main_state.kitchen_floor.draw()
+    main_state.wall.draw()
+    main_state.frame.draw()
+    main_state.table.draw()
     pause.draw()
     update_canvas()
 
