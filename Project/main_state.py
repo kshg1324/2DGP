@@ -13,6 +13,7 @@ import cooking_4_state
 import cooking_5_state
 import cooking_6_state
 import time
+import random
 import pause_state
 
 
@@ -37,6 +38,13 @@ food_3_stack = 0
 food_4_stack = 0
 food_5_stack = 0
 food_6_stack = 0
+
+Table_1 = 0
+Table_2 = 0
+Table_3 = 0
+Table_4 = 0
+Table_5 = 0
+Table_6 = 0
 
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -196,12 +204,39 @@ class Customer:
         #self.customer_frame = 0
     def draw(self):
         #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
-        global customer_frame, timer
+        global customer_frame, timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6
         customer_frame = (customer_frame + 0.05) % 8
+        if (Table_1 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 0)
+        if (Table_2 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 0)
+        if (Table_3 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 0)
+        if (Table_4 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 1)
+        if (Table_5 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 1)
+        if (Table_6 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 1)
+
         if timer < 1000:
             timer = (timer + 1)
         if timer == 1000:
-            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 300, 450)
+            timer = timer - 1000
+            x = random.randint(0,5)
+            if(x == 0):
+                Table_1 = 1
+            if(x == 1):
+                Table_2 = 1
+            if(x == 2):
+                Table_3 = 1
+            if(x == 3):
+                Table_4 = 1
+            if(x == 4):
+                Table_5 = 1
+            if(x == 5):
+                Table_6 = 1
+
 
 def enter():
     global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table, customer
