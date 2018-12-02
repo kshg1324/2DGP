@@ -12,7 +12,7 @@ import cooking_3_state
 import cooking_4_state
 import cooking_5_state
 import cooking_6_state
-
+import time
 import pause_state
 
 
@@ -27,6 +27,7 @@ cabinet = None
 kitchen_floor = None
 frame = None
 font = None
+customer = None
 Money = 100
 Left_time = 300
 life = 3
@@ -36,6 +37,38 @@ food_3_stack = 0
 food_4_stack = 0
 food_5_stack = 0
 food_6_stack = 0
+
+# Boy Run Speed
+PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
+RUN_SPEED_KMPH = 20.0  # Km / Hour
+RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
+# Boy Action Speed
+TIME_PER_ACTION = 0.5
+ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
+FRAMES_PER_ACTION = 8
+
+timer = 0.0
+customer_frame = 0
+frame_time = 0.0
+
+def run(start_state):
+    global running, stack
+    running = True
+    stack = [start_state]
+    start_state.enter()
+
+    global frame_time
+    current_time = time.time()
+    while (running):
+        stack[-1].handle_events()
+        stack[-1].update()
+        stack[-1].draw()
+        frame_time = time.time() - current_time
+        #frame_rate = 1.0 / frame_time
+        current_time += frame_time
 
 class Floor:
     def __init__(self):
@@ -136,7 +169,7 @@ class Frame:
         self.image8.draw(50 + 100 * 6 - 5, 49.5 + 100 * 5 )
         self.image9.draw(50 + 100 * 6 - 5, 82.5 + 100 * 5 )
         self.image1.draw(100 * 4, 50 + 100 * 5)
-        self.font.draw(25 + 100 * 7 -10,  49.5 + 100 * 5 , '(%3.2f)' % (Left_time - get_time()), (0, 0, 0))
+        self.font.draw(25 + 100 * 7 -10,  49.5 + 100 * 5 , '(%3.2f)' % (get_time()), (0, 0, 0))
         self.font.draw(25 + 100 * 7 - 10, 82.5  + 100 * 5 , '(%3.2f)' % (Money), (0, 0, 0))
 
         self.font.draw(50 + 100 * 0 + 20, 50 + 100 * 5 - 30 , '(%d)' % (food_1_stack), (0, 0, 0))
@@ -157,11 +190,21 @@ class Table:
         for i in range(3):
             for j in range(2):
                 self.image.draw(100 + 300 * i, 75 + 150 * j)
-
-
+class Customer:
+    def __init__(self):
+        self.image = load_image('animation_sheet.png')
+        #self.customer_frame = 0
+    def draw(self):
+        #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
+        global customer_frame, timer
+        customer_frame = (customer_frame + 0.05) % 8
+        if timer < 1000:
+            timer = (timer + 1)
+        if timer == 1000:
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 300, 450)
 
 def enter():
-    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table
+    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table, customer
     floor = Floor()
     burner = Burner()
     refrig = Refrig()
@@ -171,8 +214,10 @@ def enter():
     wall = Wall()
     frame = Frame()
     table = Table()
+    customer = Customer()
+
 def exit():
-    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table
+    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table, customer
     del(floor)
     del(burner)
     del(refrig)
@@ -182,7 +227,7 @@ def exit():
     del(wall)
     del(frame)
     del(table)
-
+    del(customer)
 def pause():
     pass
 
@@ -236,6 +281,7 @@ def draw():
     wall.draw()
     frame.draw()
     table.draw()
+    customer.draw()
     update_canvas()
 
 
