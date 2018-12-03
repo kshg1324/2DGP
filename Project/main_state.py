@@ -253,6 +253,7 @@ class Customer:
     def __init__(self):
         self.image = load_image('animation_sheet.png')
         self.image2 = load_image('mini_menu.png')
+        self.font = load_font('ENCR10B.TTF', 16)
         #self.customer_frame = 0
     def draw(self):
         #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
@@ -267,6 +268,12 @@ class Customer:
             self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 16.5 + 33 * 3, 50 + 33 * 5)
             self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 16.5 + 33 * 4, 50 + 33 * 5)
             self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 16.5 + 33 * 5, 50 + 33 * 5)
+            self.font.draw(33 * 0, 20+50 + 33 * 5, '(%d)' % (Table_1_orderd_Q), (0, 0, 255))
+            self.font.draw(33 * 1, 20+50 + 33 * 5, '(%d)' % (Table_1_orderd_W), (0, 0, 255))
+            self.font.draw(33 * 2, 20+50 + 33 * 5, '(%d)' % (Table_1_orderd_E), (0, 0, 255))
+            self.font.draw(33 * 3, 20+50 + 33 * 5, '(%d)' % (Table_1_orderd_R), (0, 0, 255))
+            self.font.draw(33 * 4, 20+50 + 33 * 5, '(%d)' % (Table_1_orderd_T), (0, 0, 255))
+            self.font.draw(33 * 5, 20+50 + 33 * 5, '(%d)' % (Table_1_orderd_Y), (0, 0, 255))
         if (Table_2 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 300 + 16.5 + 33 * 0, 50 + 33 * 5)
@@ -275,6 +282,12 @@ class Customer:
             self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 300 + 16.5 + 33 * 3, 50 + 33 * 5)
             self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 300 + 16.5 + 33 * 4, 50 + 33 * 5)
             self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 300 + 16.5 + 33 * 5, 50 + 33 * 5)
+            self.font.draw(300 + 33 * 0, 20+50 + 33 * 5, '(%d)' % (Table_2_orderd_Q), (255, 0, 0))
+            self.font.draw(300 + 33 * 1, 20+50 + 33 * 5, '(%d)' % (Table_2_orderd_W), (255, 0, 0))
+            self.font.draw(300 + 33 * 2, 20+50 + 33 * 5, '(%d)' % (Table_2_orderd_E), (255, 0, 0))
+            self.font.draw(300 + 33 * 3, 20+50 + 33 * 5, '(%d)' % (Table_2_orderd_R), (255, 0, 0))
+            self.font.draw(300 + 33 * 4, 20+50 + 33 * 5, '(%d)' % (Table_2_orderd_T), (255, 0, 0))
+            self.font.draw(300 + 33 * 5, 20+50 + 33 * 5, '(%d)' % (Table_2_orderd_Y), (255, 0, 0))
         if (Table_3 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 600 + 16.5 + 33 * 0, 50 + 33 * 5)
@@ -283,6 +296,12 @@ class Customer:
             self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 600 + 16.5 + 33 * 3, 50 + 33 * 5)
             self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 600 + 16.5 + 33 * 4, 50 + 33 * 5)
             self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 600 + 16.5 + 33 * 5, 50 + 33 * 5)
+            self.font.draw(600 + 33 * 0, 20+50 + 33 * 5, '(%d)' % (Table_3_orderd_Q), (255, 0, 0))
+            self.font.draw(600 + 33 * 1, 20+50 + 33 * 5, '(%d)' % (Table_3_orderd_W), (255, 0, 0))
+            self.font.draw(600 + 33 * 2, 20+50 + 33 * 5, '(%d)' % (Table_3_orderd_E), (255, 0, 0))
+            self.font.draw(600 + 33 * 3, 20+50 + 33 * 5, '(%d)' % (Table_3_orderd_R), (255, 0, 0))
+            self.font.draw(600 + 33 * 4, 20+50 + 33 * 5, '(%d)' % (Table_3_orderd_T), (255, 0, 0))
+            self.font.draw(600 + 33 * 5, 20+50 + 33 * 5, '(%d)' % (Table_3_orderd_Y), (255, 0, 0))
         if (Table_4 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 16.5 + 33 * 0, -100 + 33 * 5)
@@ -291,6 +310,12 @@ class Customer:
             self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 16.5 + 33 * 3, -100 + 33 * 5)
             self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 16.5 + 33 * 4, -100 + 33 * 5)
             self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 16.5 + 33 * 5, -100 + 33 * 5)
+            self.font.draw(33 * 0, 20-100 + 33 * 5, '(%d)' % (Table_4_orderd_Q), (255, 0, 0))
+            self.font.draw(33 * 1, 20-100 + 33 * 5, '(%d)' % (Table_4_orderd_W), (255, 0, 0))
+            self.font.draw(33 * 2, 20-100 + 33 * 5, '(%d)' % (Table_4_orderd_E), (255, 0, 0))
+            self.font.draw(33 * 3, 20-100 + 33 * 5, '(%d)' % (Table_4_orderd_R), (255, 0, 0))
+            self.font.draw(33 * 4, 20-100 + 33 * 5, '(%d)' % (Table_4_orderd_T), (255, 0, 0))
+            self.font.draw(33 * 5, 20-100 + 33 * 5, '(%d)' % (Table_4_orderd_Y), (255, 0, 0))
         if (Table_5 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 300 + 16.5 + 33 * 0, -100 + 33 * 5)
@@ -299,6 +324,12 @@ class Customer:
             self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 300 + 16.5 + 33 * 3, -100 + 33 * 5)
             self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 300 + 16.5 + 33 * 4, -100 + 33 * 5)
             self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 300 + 16.5 + 33 * 5, -100 + 33 * 5)
+            self.font.draw(300 + 33 * 0, 20-100 + 33 * 5, '(%d)' % (Table_5_orderd_Q), (255, 0, 0))
+            self.font.draw(300 + 33 * 1, 20-100 + 33 * 5, '(%d)' % (Table_5_orderd_W), (255, 0, 0))
+            self.font.draw(300 + 33 * 2, 20-100 + 33 * 5, '(%d)' % (Table_5_orderd_E), (255, 0, 0))
+            self.font.draw(300 + 33 * 3, 20-100 + 33 * 5, '(%d)' % (Table_5_orderd_R), (255, 0, 0))
+            self.font.draw(300 + 33 * 4, 20-100 + 33 * 5, '(%d)' % (Table_5_orderd_T), (255, 0, 0))
+            self.font.draw(300 + 33 * 5, 20-100 + 33 * 5, '(%d)' % (Table_5_orderd_Y), (255, 0, 0))
         if (Table_6 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 600 + 16.5 + 33 * 0, -100 + 33 * 5)
@@ -307,6 +338,12 @@ class Customer:
             self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 600 + 16.5 + 33 * 3, -100 + 33 * 5)
             self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 600 + 16.5 + 33 * 4, -100 + 33 * 5)
             self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 600 + 16.5 + 33 * 5, -100 + 33 * 5)
+            self.font.draw(600 + 33 * 0, 20-100 + 33 * 5, '(%d)' % (Table_6_orderd_Q), (255, 0, 0))
+            self.font.draw(600 + 33 * 1, 20-100 + 33 * 5, '(%d)' % (Table_6_orderd_W), (255, 0, 0))
+            self.font.draw(600 + 33 * 2, 20-100 + 33 * 5, '(%d)' % (Table_6_orderd_E), (255, 0, 0))
+            self.font.draw(600 + 33 * 3, 20-100 + 33 * 5, '(%d)' % (Table_6_orderd_R), (255, 0, 0))
+            self.font.draw(600 + 33 * 4, 20-100 + 33 * 5, '(%d)' % (Table_6_orderd_T), (255, 0, 0))
+            self.font.draw(600 + 33 * 5, 20-100 + 33 * 5, '(%d)' % (Table_6_orderd_Y), (255, 0, 0))
 
 
 
@@ -472,7 +509,7 @@ def handle_events():
             game_framework.push_state(cooking_state)
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
-        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_LSHIFT):
+        if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_1)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_2)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_3)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_4)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_5)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_6)):
             game_framework.push_state(serving_state)
 
 
