@@ -111,6 +111,14 @@ Table_6_orderd_Y = 0
 
 time_literal = 0
 time_literal_2 = 0
+time_literal_3 = 0
+
+food_literal_1 = 0.0
+food_literal_2 = 0.0
+food_literal_3 = 0.0
+food_literal_4 = 0.0
+food_literal_5 = 0.0
+food_literal_6 = 0.0
 
 food_timer = 0.0
 customer_timer = 0.0
@@ -217,7 +225,13 @@ class Frame:
         self.font = load_font('ENCR10B.TTF', 16)
 
     def draw(self):
-        global time_literal
+        global time_literal, food_literal_1,food_literal_2,food_literal_3,food_literal_4,food_literal_5,food_literal_6,food_1_stack,food_2_stack,food_3_stack,food_4_stack,food_5_stack,food_6_stack
+        food_timer_1 = get_time() - time_literal - food_literal_1
+        food_timer_2 = get_time() - time_literal - food_literal_2
+        food_timer_3 = get_time() - time_literal - food_literal_3
+        food_timer_4 = get_time() - time_literal - food_literal_4
+        food_timer_5 = get_time() - time_literal - food_literal_5
+        food_timer_6 = get_time() - time_literal - food_literal_6
         self.image2.clip_draw(100 * 1, 100 * 9, 100, 100 , 50 + 100 * 0, 50 + 100 * 5)
         self.image2.clip_draw(100 * 3, 100 * 1, 100, 100 , 50 + 100 * 1, 50 + 100 * 5)
         self.image2.clip_draw(100 * 0, 100 * 5, 100, 100 , 50 + 100 * 2, 50 + 100 * 5)
@@ -249,6 +263,29 @@ class Frame:
         self.font.draw(50 + 100 * 5 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_6_stack), (0, 0, 0))
 
         if(food_1_stack > 0):
+            if(food_timer_1 > 10):
+                food_1_stack-=1
+                food_literal_1 += 10
+        if(food_2_stack > 0):
+            if(food_timer_2 > 10):
+                food_2_stack-=1
+                food_literal_2 += 10
+        if(food_3_stack > 0):
+            if(food_timer_3 > 10):
+                food_3_stack-=1
+                food_literal_3 += 10
+        if(food_4_stack > 0):
+            if(food_timer_4 > 10):
+                food_4_stack-=1
+                food_literal_4 += 10
+        if(food_5_stack > 0):
+            if(food_timer_5 > 10):
+                food_5_stack-=1
+                food_literal_5 += 10
+        if(food_6_stack > 0):
+            if(food_timer_6 > 10):
+                food_6_stack-=1
+                food_literal_6 += 10
 
         #self.image1.draw(100 * 4, 50 + 100 * 5)
         #self.image1.draw(100 * 4, 50 + 100 * 5)
