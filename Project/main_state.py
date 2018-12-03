@@ -25,6 +25,7 @@ kitchen_floor = None
 frame = None
 font = None
 customer = None
+messeage = None
 Money = 100
 Left_time = 300
 life = 3
@@ -57,6 +58,7 @@ ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
 timer = 0.0
+messeage_timer = 0.0
 customer_frame = 0
 frame_time = 0.0
 
@@ -237,9 +239,22 @@ class Customer:
             if(x == 5):
                 Table_6 = 1
 
+class Messeage:
+    def __init__(self):
+        self.font = load_font('ENCR10B.TTF', 16)
+        #pass
+    def draw(self):
+        global messeage_timer
+        if(cooking_state.is_cooking_fail == 1):
+            self.font.draw(330, 75 + 100 * 3, 'COOKING FAIL!', (0, 0, 0))
+            if messeage_timer < 300:
+                messeage_timer = (messeage_timer + 1)
+            if messeage_timer == 300:
+                cooking_state.is_cooking_fail = 0
+                messeage_timer = messeage_timer - 300
 
 def enter():
-    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table, customer
+    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table, customer, messeage
     floor = Floor()
     burner = Burner()
     refrig = Refrig()
@@ -250,9 +265,10 @@ def enter():
     frame = Frame()
     table = Table()
     customer = Customer()
+    messeage = Messeage()
 
 def exit():
-    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table, customer
+    global boy, floor, burner, refrig, sink, cabinet, kitchen_floor, wall, frame, table, customer, messeage
     del(floor)
     del(burner)
     del(refrig)
@@ -263,6 +279,8 @@ def exit():
     del(frame)
     del(table)
     del(customer)
+    del(messeage)
+
 def pause():
     pass
 
@@ -300,6 +318,7 @@ def draw():
     frame.draw()
     table.draw()
     customer.draw()
+    messeage.draw()
     update_canvas()
 
 

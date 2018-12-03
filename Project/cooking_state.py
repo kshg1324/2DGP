@@ -16,7 +16,7 @@ cook_stack_4 = 0
 cook_stack_5 = 0
 cook_stack_6 = 0
 cook_type = 0
-
+is_cooking_fail = 0
 class Cooking:
     def __init__(self):
         self.image1 = load_image('cooking_background.png')
@@ -25,9 +25,16 @@ class Cooking:
     def update(self):
         pass
     def draw(self):
-        global cook_stack_1,cook_stack_2,cook_stack_3,cook_stack_4,cook_stack_5,cook_stack_6,cook_type
+        global cook_stack_1,cook_stack_2,cook_stack_3,cook_stack_4,cook_stack_5,cook_stack_6,cook_type,is_cooking_fail
         self.image1.draw(400, 300)
-        if (cook_type == 1):
+        if (cook_type == 0):
+            self.image2.clip_draw(100 * 0, 100 * 6, 100, 100, 50 + 400 + 100 * -3, 400)
+            self.image2.clip_draw(100 * 0, 100 * 0, 100, 100, 50 + 400 + 100 * -2, 400)
+            self.image2.clip_draw(100 * 5, 100 * 4, 100, 100, 50 + 400 + 100 * -1, 400)
+            self.image2.clip_draw(100 * 2, 100 * 3, 100, 100, 50 + 400 + 100 * 0, 400)
+            self.image2.clip_draw(100 * 2, 100 * 5, 100, 100, 50 + 400 + 100 * 1, 400)
+            self.image2.clip_draw(100 * 2, 100 * 4, 100, 100, 50 + 400 + 100 * 2, 400)
+        elif (cook_type == 1):
             self.image2.clip_draw(100 * 0, 100 * 6, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
             if cook_stack_1 == 0:
                 self.font.draw(400, 300, '(o m e l e t)', (0, 0, 0))
@@ -128,7 +135,7 @@ def resume():
     pass
 
 def handle_events():
-    global cook_stack_1, cook_stack_2, cook_stack_3, cook_stack_4, cook_stack_5, cook_stack_6, cook_type
+    global cook_stack_1, cook_stack_2, cook_stack_3, cook_stack_4, cook_stack_5, cook_stack_6, cook_type,is_cooking_fail
     events = get_events()
     for event in events:
         if (event.type == SDL_KEYDOWN):
@@ -170,6 +177,8 @@ def handle_events():
                     cook_type = 0
                     game_framework.pop_state()
                 else:
+                    is_cooking_fail = 1
+                    main_state.messeage_timer = 0
                     cook_stack_1 = 0
                     cook_type = 0
                     game_framework.pop_state()
@@ -196,6 +205,8 @@ def handle_events():
                     cook_type = 0
                     game_framework.pop_state()
                 else:
+                    is_cooking_fail = 1
+                    main_state.messeage_timer = 0
                     cook_stack_2 = 0
                     cook_type = 0
                     game_framework.pop_state()
@@ -216,6 +227,8 @@ def handle_events():
                     cook_type = 0
                     game_framework.pop_state()
                 else:
+                    is_cooking_fail = 1
+                    main_state.messeage_timer = 0
                     cook_stack_3 = 0
                     cook_type = 0
                     game_framework.pop_state()
@@ -234,6 +247,8 @@ def handle_events():
                     cook_type = 0
                     game_framework.pop_state()
                 else:
+                    is_cooking_fail = 1
+                    main_state.messeage_timer = 0
                     cook_stack_4 = 0
                     cook_type = 0
                     game_framework.pop_state()
@@ -250,6 +265,8 @@ def handle_events():
                     cook_type = 0
                     game_framework.pop_state()
                 else:
+                    is_cooking_fail = 1
+                    main_state.messeage_timer = 0
                     cook_stack_5 = 0
                     cook_type = 0
                     game_framework.pop_state()
@@ -272,6 +289,8 @@ def handle_events():
                     cook_type = 0
                     game_framework.pop_state()
                 else:
+                    is_cooking_fail = 1
+                    main_state.messeage_timer = 0
                     cook_stack_6 = 0
                     cook_type = 0
                     game_framework.pop_state()
@@ -291,5 +310,6 @@ def draw():
     main_state.wall.draw()
     main_state.frame.draw()
     main_state.table.draw()
+    main_state.customer.draw()
     cooking.draw()
     update_canvas()

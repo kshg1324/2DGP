@@ -34,14 +34,10 @@ def handle_events():
             #print("CX =", CX)
             #print("CY =", CY)
         else:
-            if(event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
+            if ((event.type == SDL_MOUSEBUTTONDOWN) and (150 <= CX <= 250 and 35 <= CY <= 65)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE)):
+                game_framework.change_state(main_state)
+            if ((event.type == SDL_MOUSEBUTTONDOWN) and (550 <= CX <= 650 and 35 <= CY <= 65)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE)):
                 game_framework.quit()
-            if event.type == SDL_MOUSEBUTTONDOWN:
-                if (150 <= CX <= 250 and 35 <= CY <= 65):
-                    game_framework.change_state(main_state)
-            if event.type == SDL_MOUSEBUTTONDOWN:
-                if (550 <= CX <= 650 and 35 <= CY <= 65):
-                    game_framework.quit()
 
 
 def draw():
