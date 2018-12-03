@@ -252,6 +252,7 @@ class Table:
 class Customer:
     def __init__(self):
         self.image = load_image('animation_sheet.png')
+        self.image2 = load_image('mini_menu.png')
         #self.customer_frame = 0
     def draw(self):
         #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
@@ -259,17 +260,55 @@ class Customer:
         customer_frame = (customer_frame + 0.05) % 8
 
         if (Table_1 == 1):
-            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 0)
-        if (Table_2 == 1):
-            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 0)
-        if (Table_3 == 1):
-            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 0)
-        if (Table_4 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 1)
-        if (Table_5 == 1):
+            self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 16.5 + 33 * 0, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 16.5 + 33 * 1, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 5, 33, 33, 16.5 + 33 * 2, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 16.5 + 33 * 3, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 16.5 + 33 * 4, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 16.5 + 33 * 5, 50 + 33 * 5)
+        if (Table_2 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 1)
-        if (Table_6 == 1):
+            self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 300 + 16.5 + 33 * 0, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 300 + 16.5 + 33 * 1, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 5, 33, 33, 300 + 16.5 + 33 * 2, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 300 + 16.5 + 33 * 3, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 300 + 16.5 + 33 * 4, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 300 + 16.5 + 33 * 5, 50 + 33 * 5)
+        if (Table_3 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 1)
+            self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 600 + 16.5 + 33 * 0, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 600 + 16.5 + 33 * 1, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 5, 33, 33, 600 + 16.5 + 33 * 2, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 600 + 16.5 + 33 * 3, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 600 + 16.5 + 33 * 4, 50 + 33 * 5)
+            self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 600 + 16.5 + 33 * 5, 50 + 33 * 5)
+        if (Table_4 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 0)
+            self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 16.5 + 33 * 0, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 16.5 + 33 * 1, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 5, 33, 33, 16.5 + 33 * 2, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 16.5 + 33 * 3, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 16.5 + 33 * 4, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 16.5 + 33 * 5, -100 + 33 * 5)
+        if (Table_5 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 0)
+            self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 300 + 16.5 + 33 * 0, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 300 + 16.5 + 33 * 1, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 5, 33, 33, 300 + 16.5 + 33 * 2, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 300 + 16.5 + 33 * 3, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 300 + 16.5 + 33 * 4, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 300 + 16.5 + 33 * 5, -100 + 33 * 5)
+        if (Table_6 == 1):
+            self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 0)
+            self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 600 + 16.5 + 33 * 0, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 600 + 16.5 + 33 * 1, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 5, 33, 33, 600 + 16.5 + 33 * 2, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 4, 33 * 5, 33, 33, 600 + 16.5 + 33 * 3, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 0, 33 * 7, 33, 33, 600 + 16.5 + 33 * 4, -100 + 33 * 5)
+            self.image2.clip_draw(33 * 2, 33 * 6, 33, 33, 600 + 16.5 + 33 * 5, -100 + 33 * 5)
+
+
 
         if timer < 1000:
             timer = (timer + 1)

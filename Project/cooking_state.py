@@ -20,7 +20,7 @@ is_cooking_fail = 0
 class Cooking:
     def __init__(self):
         self.image1 = load_image('cooking_background.png')
-        self.image2 = load_image('menu.png')
+        self.image2 = load_image('menu2.png')
         self.font = load_font('ENCR10B.TTF', 16)
     def update(self):
         pass
@@ -28,14 +28,14 @@ class Cooking:
         global cook_stack_1,cook_stack_2,cook_stack_3,cook_stack_4,cook_stack_5,cook_stack_6,cook_type,is_cooking_fail
         self.image1.draw(400, 300)
         if (cook_type == 0):
-            self.image2.clip_draw(100 * 0, 100 * 6, 100, 100, 50 + 400 + 100 * -3, 400)
-            self.image2.clip_draw(100 * 0, 100 * 0, 100, 100, 50 + 400 + 100 * -2, 400)
-            self.image2.clip_draw(100 * 5, 100 * 4, 100, 100, 50 + 400 + 100 * -1, 400)
-            self.image2.clip_draw(100 * 2, 100 * 3, 100, 100, 50 + 400 + 100 * 0, 400)
-            self.image2.clip_draw(100 * 2, 100 * 5, 100, 100, 50 + 400 + 100 * 1, 400)
-            self.image2.clip_draw(100 * 2, 100 * 4, 100, 100, 50 + 400 + 100 * 2, 400)
+            self.image2.clip_draw(100 * 1, 100 * 9, 100, 100, 50 + 400 + 100 * -3, 400)
+            self.image2.clip_draw(100 * 3, 100 * 1, 100, 100, 50 + 400 + 100 * -2, 400)
+            self.image2.clip_draw(100 * 0, 100 * 5, 100, 100, 50 + 400 + 100 * -1, 400)
+            self.image2.clip_draw(100 * 4, 100 * 5, 100, 100, 50 + 400 + 100 * 0, 400)
+            self.image2.clip_draw(100 * 0, 100 * 7, 100, 100, 50 + 400 + 100 * 1, 400)
+            self.image2.clip_draw(100 * 2, 100 * 6, 100, 100, 50 + 400 + 100 * 2, 400)
         elif (cook_type == 1):
-            self.image2.clip_draw(100 * 0, 100 * 6, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
+            self.image2.clip_draw(100 * 1, 100 * 9, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
             if cook_stack_1 == 0:
                 self.font.draw(400, 300, '(o m e l e t)', (0, 0, 0))
             elif cook_stack_1 == 1:
@@ -49,7 +49,7 @@ class Cooking:
             elif cook_stack_1 == 5:
                 self.font.draw(400, 300, '(t)', (0, 0, 0))
         elif (cook_type == 2):
-            self.image2.clip_draw(100 * 0, 100 * 0, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
+            self.image2.clip_draw(100 * 3, 100 * 1, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
             if cook_stack_2 == 0:
                 self.font.draw(400, 300, '(h a m b u r g e r)', (0, 0, 0))
             elif cook_stack_2 == 1:
@@ -69,7 +69,7 @@ class Cooking:
             elif cook_stack_2 == 8:
                 self.font.draw(400, 300, '(r)', (0, 0, 0))
         elif (cook_type == 3):
-            self.image2.clip_draw(100 * 5, 100 * 4, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
+            self.image2.clip_draw(100 * 0, 100 * 5, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
             if cook_stack_3 == 0:
                 self.font.draw(400, 300, '(c o f f e e)', (0, 0, 0))
             elif cook_stack_3 == 1:
@@ -83,7 +83,7 @@ class Cooking:
             elif cook_stack_3 == 5:
                 self.font.draw(400, 300, '(e)', (0, 0, 0))
         elif (cook_type == 4):
-            self.image2.clip_draw(100 * 2, 100 * 3, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
+            self.image2.clip_draw(100 * 4, 100 * 5, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
             if cook_stack_4 == 0:
                 self.font.draw(400, 300, '(p i z z a)', (0, 0, 0))
             elif cook_stack_4 == 1:
@@ -105,7 +105,7 @@ class Cooking:
             elif cook_stack_5 == 3:
                 self.font.draw(400, 300, '(h)', (0, 0, 0))
         elif (cook_type == 6):
-            self.image2.clip_draw(100 * 2, 100 * 4, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
+            self.image2.clip_draw(100 * 0, 100 * 7, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
             if cook_stack_6 == 0:
                 self.font.draw(400, 300, '(p u d d i n g)', (0, 0, 0))
             elif cook_stack_6 == 1:
@@ -135,7 +135,7 @@ def resume():
     pass
 
 def handle_events():
-    global cook_stack_1, cook_stack_2, cook_stack_3, cook_stack_4, cook_stack_5, cook_stack_6, cook_type,is_cooking_fail
+    global cook_stack_1, cook_stack_2, cook_stack_3, cook_stack_4, cook_stack_5, cook_stack_6, cook_type, is_cooking_fail
     events = get_events()
     for event in events:
         if (event.type == SDL_KEYDOWN):
