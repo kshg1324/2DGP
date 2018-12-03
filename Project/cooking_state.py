@@ -26,24 +26,8 @@ class Cooking:
         pass
     def draw(self):
         global cook_stack_1,cook_stack_2,cook_stack_3,cook_stack_4,cook_stack_5,cook_stack_6,cook_type
-        events = get_events()
         self.image1.draw(400, 300)
-        if (cook_type == 0):
-            for event in events:
-                if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_q)):
-                    cook_type = 1
-                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_w)):
-                    cook_type = 2
-                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)):
-                    cook_type = 3
-                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)):
-                    cook_type = 4
-                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_t)):
-                    cook_type = 5
-                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_y)):
-                    cook_type = 6
-
-        elif (cook_type == 1):
+        if (cook_type == 1):
             self.image2.clip_draw(100 * 0, 100 * 6, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
             if cook_stack_1 == 0:
                 self.font.draw(400, 300, '(o m e l e t)', (0, 0, 0))
@@ -147,9 +131,20 @@ def handle_events():
     global cook_stack_1, cook_stack_2, cook_stack_3, cook_stack_4, cook_stack_5, cook_stack_6, cook_type
     events = get_events()
     for event in events:
-        #if event.type == SDL_QUIT:
-        #    game_framework.quit()
-        if(cook_type == 1):
+        if (cook_type == 0):
+            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_q)):
+                cook_type = 1
+            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_w)):
+                cook_type = 2
+            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)):
+                cook_type = 3
+            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)):
+                cook_type = 4
+            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_t)):
+                cook_type = 5
+            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_y)):
+                cook_type = 6
+        elif(cook_type == 1):
             if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_o)) and cook_stack_1 == 0:
                 cook_stack_1 += 1
             elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_m)) and cook_stack_1 == 1:

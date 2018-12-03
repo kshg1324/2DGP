@@ -28,6 +28,7 @@ customer = None
 Money = 100
 Left_time = 300
 life = 3
+
 food_1_stack = 0
 food_2_stack = 0
 food_3_stack = 0
@@ -288,7 +289,6 @@ def update():
 
 
 def draw():
-
     clear_canvas()
     floor.draw()
     burner.draw()
