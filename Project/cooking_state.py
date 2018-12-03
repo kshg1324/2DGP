@@ -98,7 +98,7 @@ class Cooking:
             elif cook_stack_5 == 3:
                 self.font.draw(400, 300, '(h)', (0, 0, 0))
         elif (cook_type == 6):
-            self.image2.clip_draw(100 * 0, 100 * 0, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
+            self.image2.clip_draw(100 * 2, 100 * 4, 100, 100, 50 + 400 + 100 * -1 + 50, 400)
             if cook_stack_6 == 0:
                 self.font.draw(400, 300, '(p u d d i n g)', (0, 0, 0))
             elif cook_stack_6 == 1:
@@ -131,7 +131,9 @@ def handle_events():
     global cook_stack_1, cook_stack_2, cook_stack_3, cook_stack_4, cook_stack_5, cook_stack_6, cook_type
     events = get_events()
     for event in events:
-        if (cook_type == 0):
+        if event.type == SDL_QUIT:
+            game_framework.quit()
+        elif (cook_type == 0):
             if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_q)):
                 cook_type = 1
             elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_w)):
