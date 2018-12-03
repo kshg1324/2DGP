@@ -19,7 +19,7 @@ class Cooking_1:
     def draw(self):
         global cook_stack_1
         self.image1.draw(400, 300)
-        self.image2.clip_draw(100 * 0, 100 * 6, 100, 100 , 50 + 400 + 100 * -3, 400)
+        self.image2.clip_draw(100 * 0, 100 * 6, 100, 100 , 50 + 400+ 100 * -1 + 50, 400)
         # self.image2.clip_draw(100 * 0, 100 * 0, 100, 100 , 50 + 400+ 100 * -2, 400)
         # self.image2.clip_draw(100 * 5, 100 * 4, 100, 100 , 50 + 400+ 100 * -1, 400)
         # self.image2.clip_draw(100 * 2, 100 * 3, 100, 100 , 50 + 400+ 100 * 0, 400)

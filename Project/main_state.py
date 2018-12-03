@@ -12,6 +12,7 @@ import cooking_3_state
 import cooking_4_state
 import cooking_5_state
 import cooking_6_state
+import serving_state
 import time
 import random
 import pause_state
@@ -46,6 +47,7 @@ Table_4 = 0
 Table_5 = 0
 Table_6 = 0
 
+time_literal = 0
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
 RUN_SPEED_KMPH = 20.0  # Km / Hour
@@ -146,7 +148,8 @@ class Wall:
 
 class Frame:
     def __init__(self):
-        global Money
+        global Money, time_literal
+        time_literal = get_time()
         self.image1 = load_image('frame2.png')
         self.image2 = load_image('menu.png')
         self.image3 = load_image('life_3.png')
@@ -159,7 +162,7 @@ class Frame:
         self.font = load_font('ENCR10B.TTF', 16)
 
     def draw(self):
-
+        global time_literal
         self.image2.clip_draw(100 * 0, 100 * 6, 100, 100 , 50 + 100 * 0, 50 + 100 * 5)
         self.image2.clip_draw(100 * 0, 100 * 0, 100, 100 , 50 + 100 * 1, 50 + 100 * 5)
         self.image2.clip_draw(100 * 5, 100 * 4, 100, 100 , 50 + 100 * 2, 50 + 100 * 5)
@@ -177,7 +180,7 @@ class Frame:
         self.image8.draw(50 + 100 * 6 - 5, 49.5 + 100 * 5 )
         self.image9.draw(50 + 100 * 6 - 5, 82.5 + 100 * 5 )
         self.image1.draw(100 * 4, 50 + 100 * 5)
-        self.font.draw(25 + 100 * 7 -10,  49.5 + 100 * 5 , '(%3.2f)' % (get_time()), (0, 0, 0))
+        self.font.draw(25 + 100 * 7 -10,  49.5 + 100 * 5 , '(%3.2f)' % (Left_time - get_time() + time_literal), (0, 0, 0))
         self.font.draw(25 + 100 * 7 - 10, 82.5  + 100 * 5 , '(%3.2f)' % (Money), (0, 0, 0))
 
         self.font.draw(50 + 100 * 0 + 20, 50 + 100 * 5 - 30 , '(%d)' % (food_1_stack), (0, 0, 0))
@@ -206,6 +209,7 @@ class Customer:
         #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
         global customer_frame, timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6
         customer_frame = (customer_frame + 0.05) % 8
+
         if (Table_1 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 0)
         if (Table_2 == 1):
@@ -257,7 +261,7 @@ def exit():
     del(burner)
     del(refrig)
     del(sink)
-    del (kitchen_floor)
+    del(kitchen_floor)
     del(cabinet)
     del(wall)
     del(frame)
@@ -298,6 +302,8 @@ def handle_events():
             game_framework.push_state(cooking_6_state)
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_LSHIFT):
+            game_framework.push_state(serving_state)
 
 
 def update():

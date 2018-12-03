@@ -24,7 +24,7 @@ class Cooking_6:
         # self.image2.clip_draw(100 * 5, 100 * 4, 100, 100 , 50 + 400+ 100 * -1, 400)
         # self.image2.clip_draw(100 * 2, 100 * 3, 100, 100 , 50 + 400+ 100 * 0, 400)
         # self.image2.clip_draw(100 * 2, 100 * 5, 100, 100 , 50 + 400+ 100 * 1, 400)
-        self.image2.clip_draw(100 * 0, 100 * 0, 100, 100 , 50 + 400+ 100 * 2, 400)
+        self.image2.clip_draw(100 * 0, 100 * 0, 100, 100 , 50 + 400+ 100 * -1 + 50, 400)
         if cook_stack_6 == 0:
             self.font.draw(400, 300, '(p u d d i n g)', (0, 0, 0))
         elif cook_stack_6 == 1:
