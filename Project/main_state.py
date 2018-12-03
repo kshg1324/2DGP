@@ -44,6 +44,55 @@ Table_4 = 0
 Table_5 = 0
 Table_6 = 0
 
+Table_1_order = 0
+Table_2_order = 0
+Table_3_order = 0
+Table_4_order = 0
+Table_5_order = 0
+Table_6_order = 0
+
+Table_1_orderd_Q = 0
+Table_1_orderd_W = 0
+Table_1_orderd_E = 0
+Table_1_orderd_R = 0
+Table_1_orderd_T = 0
+Table_1_orderd_Y = 0
+
+Table_2_orderd_Q = 0
+Table_2_orderd_W = 0
+Table_2_orderd_E = 0
+Table_2_orderd_R = 0
+Table_2_orderd_T = 0
+Table_2_orderd_Y = 0
+
+Table_3_orderd_Q = 0
+Table_3_orderd_W = 0
+Table_3_orderd_E = 0
+Table_3_orderd_R = 0
+Table_3_orderd_T = 0
+Table_3_orderd_Y = 0
+
+Table_4_orderd_Q = 0
+Table_4_orderd_W = 0
+Table_4_orderd_E = 0
+Table_4_orderd_R = 0
+Table_4_orderd_T = 0
+Table_4_orderd_Y = 0
+
+Table_5_orderd_Q = 0
+Table_5_orderd_W = 0
+Table_5_orderd_E = 0
+Table_5_orderd_R = 0
+Table_5_orderd_T = 0
+Table_5_orderd_Y = 0
+
+Table_6_orderd_Q = 0
+Table_6_orderd_W = 0
+Table_6_orderd_E = 0
+Table_6_orderd_R = 0
+Table_6_orderd_T = 0
+Table_6_orderd_Y = 0
+
 time_literal = 0
 # Boy Run Speed
 PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
@@ -61,6 +110,7 @@ timer = 0.0
 messeage_timer = 0.0
 customer_frame = 0
 frame_time = 0.0
+order = 0
 
 def run(start_state):
     global running, stack
@@ -149,7 +199,7 @@ class Frame:
         global Money, time_literal
         time_literal = get_time()
         self.image1 = load_image('frame2.png')
-        self.image2 = load_image('menu.png')
+        self.image2 = load_image('menu2.png')
         self.image3 = load_image('life_3.png')
         self.image4 = load_image('life_2.png')
         self.image5 = load_image('life_1.png')
@@ -161,12 +211,12 @@ class Frame:
 
     def draw(self):
         global time_literal
-        self.image2.clip_draw(100 * 0, 100 * 6, 100, 100 , 50 + 100 * 0, 50 + 100 * 5)
-        self.image2.clip_draw(100 * 0, 100 * 0, 100, 100 , 50 + 100 * 1, 50 + 100 * 5)
-        self.image2.clip_draw(100 * 5, 100 * 4, 100, 100 , 50 + 100 * 2, 50 + 100 * 5)
-        self.image2.clip_draw(100 * 2, 100 * 3, 100, 100 , 50 + 100 * 3, 50 + 100 * 5)
-        self.image2.clip_draw(100 * 2, 100 * 5, 100, 100 , 50 + 100 * 4, 50 + 100 * 5)
-        self.image2.clip_draw(100 * 2, 100 * 4, 100, 100 , 50 + 100 * 5, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 1, 100 * 9, 100, 100 , 50 + 100 * 0, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 3, 100 * 1, 100, 100 , 50 + 100 * 1, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 0, 100 * 5, 100, 100 , 50 + 100 * 2, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 4, 100 * 5, 100, 100 , 50 + 100 * 3, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 0, 100 * 7, 100, 100 , 50 + 100 * 4, 50 + 100 * 5)
+        self.image2.clip_draw(100 * 2, 100 * 6, 100, 100 , 50 + 100 * 5, 50 + 100 * 5)
         if life == 3:
             self.image3.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
         elif life == 2:
@@ -205,7 +255,7 @@ class Customer:
         #self.customer_frame = 0
     def draw(self):
         #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
-        global customer_frame, timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6
+        global Table_1_order,Table_2_order,Table_3_order,Table_4_order,Table_5_order,Table_6_order, customer_frame, timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6, Table_1_orderd_Q,Table_1_orderd_W,Table_1_orderd_E,Table_1_orderd_R,Table_1_orderd_T,Table_1_orderd_Y,Table_2_orderd_Q,Table_2_orderd_W,Table_2_orderd_E,Table_2_orderd_R,Table_2_orderd_T,Table_2_orderd_Y,Table_3_orderd_Q,Table_3_orderd_W,Table_3_orderd_E,Table_3_orderd_R,Table_3_orderd_T,Table_3_orderd_Y,Table_4_orderd_Q,Table_4_orderd_W,Table_4_orderd_E,Table_4_orderd_R,Table_4_orderd_T,Table_4_orderd_Y,Table_5_orderd_Q,Table_5_orderd_W,Table_5_orderd_E,Table_5_orderd_R,Table_5_orderd_T,Table_5_orderd_Y,Table_6_orderd_Q,Table_6_orderd_W,Table_6_orderd_E,Table_6_orderd_R,Table_6_orderd_T,Table_6_orderd_Y
         customer_frame = (customer_frame + 0.05) % 8
 
         if (Table_1 == 1):
@@ -224,20 +274,105 @@ class Customer:
         if timer < 1000:
             timer = (timer + 1)
         if timer == 1000:
-            timer = timer - 1000
-            x = random.randint(0,5)
-            if(x == 0):
-                Table_1 = 1
+            x = random.randint(1,6)
             if(x == 1):
-                Table_2 = 1
+                Table_1 = 1
+                if(Table_1_order == 0):
+                    Table_1_order = random.randint(1,6)
+                if(Table_1_order == 1):
+                    Table_1_orderd_Q+=1
+                if(Table_1_order == 2):
+                    Table_1_orderd_W+=1
+                if(Table_1_order == 3):
+                    Table_1_orderd_E+=1
+                if(Table_1_order == 4):
+                    Table_1_orderd_R+=1
+                if(Table_1_order == 5):
+                    Table_1_orderd_T+=1
+                if(Table_1_order == 6):
+                    Table_1_orderd_Y+=1
+
             if(x == 2):
-                Table_3 = 1
+                Table_2 = 1
+                if(Table_2_order == 0):
+                    Table_2_order = random.randint(1,6)
+                if(Table_2_order == 1):
+                    Table_2_orderd_Q+=1
+                if(Table_2_order == 2):
+                    Table_2_orderd_W+=1
+                if(Table_2_order == 3):
+                    Table_2_orderd_E+=1
+                if(Table_2_order == 4):
+                    Table_2_orderd_R+=1
+                if(Table_2_order == 5):
+                    Table_2_orderd_T+=1
+                if(Table_2_order == 6):
+                    Table_2_orderd_Y+=1
             if(x == 3):
-                Table_4 = 1
+                Table_3 = 1
+                if(Table_3_order == 0):
+                    Table_3_order = random.randint(1,6)
+                if(Table_3_order == 1):
+                    Table_3_orderd_Q+=1
+                if(Table_3_order == 2):
+                    Table_3_orderd_W+=1
+                if(Table_3_order == 3):
+                    Table_3_orderd_E+=1
+                if(Table_3_order == 4):
+                    Table_3_orderd_R+=1
+                if(Table_3_order == 5):
+                    Table_3_orderd_T+=1
+                if(Table_3_order == 6):
+                    Table_3_orderd_Y+=1
             if(x == 4):
-                Table_5 = 1
+                Table_4 = 1
+                if(Table_4_order == 0):
+                    Table_4_order = random.randint(1,6)
+                if(Table_4_order == 1):
+                    Table_4_orderd_Q+=1
+                if(Table_4_order == 2):
+                    Table_4_orderd_W+=1
+                if(Table_4_order == 3):
+                    Table_4_orderd_E+=1
+                if(Table_4_order == 4):
+                    Table_4_orderd_R+=1
+                if(Table_4_order == 5):
+                    Table_4_orderd_T+=1
+                if(Table_4_order == 6):
+                    Table_4_orderd_Y+=1
             if(x == 5):
+                Table_5 = 1
+                if(Table_5_order == 0):
+                    Table_5_order = random.randint(1,6)
+                if(Table_5_order == 1):
+                    Table_5_orderd_Q+=1
+                if(Table_5_order == 2):
+                    Table_5_orderd_W+=1
+                if(Table_5_order == 3):
+                    Table_5_orderd_E+=1
+                if(Table_5_order == 4):
+                    Table_5_orderd_R+=1
+                if(Table_5_order == 5):
+                    Table_5_orderd_T+=1
+                if(Table_5_order == 6):
+                    Table_5_orderd_Y+=1
+            if(x == 6):
                 Table_6 = 1
+                if(Table_6_order == 0):
+                    Table_6_order = random.randint(1,6)
+                if(Table_6_order == 1):
+                    Table_6_orderd_Q+=1
+                if(Table_6_order == 2):
+                    Table_6_orderd_W+=1
+                if(Table_6_order == 3):
+                    Table_6_orderd_E+=1
+                if(Table_6_order == 4):
+                    Table_6_orderd_R+=1
+                if(Table_6_order == 5):
+                    Table_6_orderd_T+=1
+                if(Table_6_order == 6):
+                    Table_6_orderd_Y+=1
+            timer = timer - 1000
 
 class Messeage:
     def __init__(self):
