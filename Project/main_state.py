@@ -6,12 +6,7 @@ from pico2d import *
 
 import game_framework
 import title_state
-import cooking_1_state
-import cooking_2_state
-import cooking_3_state
-import cooking_4_state
-import cooking_5_state
-import cooking_6_state
+import cooking_state
 import serving_state
 import time
 import random
@@ -280,30 +275,12 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        if event.type == SDL_KEYDOWN and event.key == SDLK_ESCAPE:
-            game_framework.change_state(title_state)
-        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_q):
-            # game_framework.change_state(cooking_state)
-            game_framework.push_state(cooking_1_state)
-        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_w):
-            # game_framework.change_state(cooking_state)
-            game_framework.push_state(cooking_2_state)
-        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_e):
-            # game_framework.change_state(cooking_state)
-            game_framework.push_state(cooking_3_state)
-        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_r):
-            # game_framework.change_state(cooking_state)
-            game_framework.push_state(cooking_4_state)
-        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_t):
-            # game_framework.change_state(cooking_state)
-            game_framework.push_state(cooking_5_state)
-        if (event.type == SDL_KEYDOWN) and (event.key == SDLK_y):
-            # game_framework.change_state(cooking_state)
-            game_framework.push_state(cooking_6_state)
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_TAB):
+            game_framework.push_state(cooking_state)
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
-        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_LSHIFT):
-            game_framework.push_state(serving_state)
+        #if (event.type, event.key) == (SDL_KEYDOWN, SDLK_LSHIFT):
+        #    game_framework.push_state(serving_state)
 
 
 def update():

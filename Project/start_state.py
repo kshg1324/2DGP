@@ -31,8 +31,8 @@ def handle_events():
             game_framework.quit()
         elif event.type == SDL_MOUSEMOTION:
             CX, CY = event.x, 600 - 1 - event.y
-            print("CX =", CX)
-            print("CY =", CY)
+            #print("CX =", CX)
+            #print("CY =", CY)
         else:
             if(event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE):
                 game_framework.quit()
