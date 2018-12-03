@@ -1,5 +1,6 @@
 import game_framework
 import main_state
+import tutorial_state
 from pico2d import *
 
 
@@ -35,7 +36,7 @@ def handle_events():
             #print("CY =", CY)
         else:
             if ((event.type == SDL_MOUSEBUTTONDOWN) and (150 <= CX <= 250 and 35 <= CY <= 65)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE)):
-                game_framework.change_state(main_state)
+                game_framework.change_state(tutorial_state)
             if ((event.type == SDL_MOUSEBUTTONDOWN) and (550 <= CX <= 650 and 35 <= CY <= 65)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE)):
                 game_framework.quit()
 
