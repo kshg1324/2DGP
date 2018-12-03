@@ -29,6 +29,7 @@ messeage = None
 Money = 100
 Left_time = 300
 life = 3
+x = 0
 
 food_1_stack = 0
 food_2_stack = 0
@@ -106,7 +107,7 @@ TIME_PER_ACTION = 0.5
 ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
 FRAMES_PER_ACTION = 8
 
-timer = 0.0
+customer_timer = 0.0
 messeage_timer = 0.0
 customer_frame = 0
 frame_time = 0.0
@@ -257,7 +258,7 @@ class Customer:
         #self.customer_frame = 0
     def draw(self):
         #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
-        global Table_1_order,Table_2_order,Table_3_order,Table_4_order,Table_5_order,Table_6_order, customer_frame, timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6, Table_1_orderd_Q,Table_1_orderd_W,Table_1_orderd_E,Table_1_orderd_R,Table_1_orderd_T,Table_1_orderd_Y,Table_2_orderd_Q,Table_2_orderd_W,Table_2_orderd_E,Table_2_orderd_R,Table_2_orderd_T,Table_2_orderd_Y,Table_3_orderd_Q,Table_3_orderd_W,Table_3_orderd_E,Table_3_orderd_R,Table_3_orderd_T,Table_3_orderd_Y,Table_4_orderd_Q,Table_4_orderd_W,Table_4_orderd_E,Table_4_orderd_R,Table_4_orderd_T,Table_4_orderd_Y,Table_5_orderd_Q,Table_5_orderd_W,Table_5_orderd_E,Table_5_orderd_R,Table_5_orderd_T,Table_5_orderd_Y,Table_6_orderd_Q,Table_6_orderd_W,Table_6_orderd_E,Table_6_orderd_R,Table_6_orderd_T,Table_6_orderd_Y
+        global x, life, Money, Table_1_order,Table_2_order,Table_3_order,Table_4_order,Table_5_order,Table_6_order, customer_frame, customer_timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6, Table_1_orderd_Q,Table_1_orderd_W,Table_1_orderd_E,Table_1_orderd_R,Table_1_orderd_T,Table_1_orderd_Y,Table_2_orderd_Q,Table_2_orderd_W,Table_2_orderd_E,Table_2_orderd_R,Table_2_orderd_T,Table_2_orderd_Y,Table_3_orderd_Q,Table_3_orderd_W,Table_3_orderd_E,Table_3_orderd_R,Table_3_orderd_T,Table_3_orderd_Y,Table_4_orderd_Q,Table_4_orderd_W,Table_4_orderd_E,Table_4_orderd_R,Table_4_orderd_T,Table_4_orderd_Y,Table_5_orderd_Q,Table_5_orderd_W,Table_5_orderd_E,Table_5_orderd_R,Table_5_orderd_T,Table_5_orderd_Y,Table_6_orderd_Q,Table_6_orderd_W,Table_6_orderd_E,Table_6_orderd_R,Table_6_orderd_T,Table_6_orderd_Y
         customer_frame = (customer_frame + 0.05) % 8
 
         if (Table_1 == 1):
@@ -276,6 +277,7 @@ class Customer:
             self.font.draw(33 * 5, 20+50 + 33 * 5, '(%d)' % (Table_1_orderd_Y), (255, 0, 0))
             if(Table_1_orderd_Q == 0 and Table_1_orderd_W == 0 and Table_1_orderd_E == 0 and Table_1_orderd_R == 0 and Table_1_orderd_T == 0 and Table_1_orderd_Y == 0):
                 Table_1 = 0
+                Money += 10
         if (Table_2 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 300 + 16.5 + 33 * 0, 50 + 33 * 5)
@@ -292,6 +294,7 @@ class Customer:
             self.font.draw(300 + 33 * 5, 20+50 + 33 * 5, '(%d)' % (Table_2_orderd_Y), (255, 0, 0))
             if(Table_2_orderd_Q == 0 and Table_2_orderd_W == 0 and Table_2_orderd_E == 0 and Table_2_orderd_R == 0 and Table_2_orderd_T == 0 and Table_2_orderd_Y == 0):
                 Table_2 = 0
+                Money += 10
         if (Table_3 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 600 + 16.5 + 33 * 0, 50 + 33 * 5)
@@ -308,6 +311,7 @@ class Customer:
             self.font.draw(600 + 33 * 5, 20+50 + 33 * 5, '(%d)' % (Table_3_orderd_Y), (255, 0, 0))
             if(Table_3_orderd_Q == 0 and Table_3_orderd_W == 0 and Table_3_orderd_E == 0 and Table_3_orderd_R == 0 and Table_3_orderd_T == 0 and Table_3_orderd_Y == 0):
                 Table_3 = 0
+                Money += 10
         if (Table_4 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 16.5 + 33 * 0, -100 + 33 * 5)
@@ -324,6 +328,7 @@ class Customer:
             self.font.draw(33 * 5, 20-100 + 33 * 5, '(%d)' % (Table_4_orderd_Y), (255, 0, 0))
             if(Table_4_orderd_Q == 0 and Table_4_orderd_W == 0 and Table_4_orderd_E == 0 and Table_4_orderd_R == 0 and Table_4_orderd_T == 0 and Table_4_orderd_Y == 0):
                 Table_4 = 0
+                Money += 10
         if (Table_5 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 300 + 16.5 + 33 * 0, -100 + 33 * 5)
@@ -340,6 +345,7 @@ class Customer:
             self.font.draw(300 + 33 * 5, 20-100 + 33 * 5, '(%d)' % (Table_5_orderd_Y), (255, 0, 0))
             if(Table_5_orderd_Q == 0 and Table_5_orderd_W == 0 and Table_5_orderd_E == 0 and Table_5_orderd_R == 0 and Table_5_orderd_T == 0 and Table_5_orderd_Y == 0):
                 Table_5 = 0
+                Money += 10
         if (Table_6 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 600 + 16.5 + 33 * 0, -100 + 33 * 5)
@@ -356,13 +362,29 @@ class Customer:
             self.font.draw(600 + 33 * 5, 20-100 + 33 * 5, '(%d)' % (Table_6_orderd_Y), (255, 0, 0))
             if(Table_6_orderd_Q == 0 and Table_6_orderd_W == 0 and Table_6_orderd_E == 0 and Table_6_orderd_R == 0 and Table_6_orderd_T == 0 and Table_6_orderd_Y == 0):
                 Table_6 = 0
+                Money+=10
 
 
 
-        if timer < 1000:
-            timer = (timer + 1)
-        if timer == 1000:
-            x = random.randint(1,6)
+        if customer_timer < 500:
+            customer_timer = (customer_timer + 1)
+        if customer_timer == 500:
+            if(Table_1 == 0):
+                x = 1
+            elif(Table_2 == 0):
+                x = 2
+            elif(Table_3 == 0):
+                x = 3
+            elif(Table_4 == 0):
+                x = 4
+            elif(Table_5 == 0):
+                x = 5
+            elif(Table_6 == 0):
+                x = 6
+            elif(Table_1 == 1 and Table_2 == 1 and Table_3 == 1 and Table_4 == 1 and Table_5 == 1 and Table_6 == 1):
+                x = 0
+                life-=1
+
             if(x == 1):
                 Table_1 = 1
                 if(Table_1_order == 0):
@@ -395,7 +417,7 @@ class Customer:
                 if(Table_2_order == 5):
                     Table_2_orderd_T+=1
                 if(Table_2_order == 6):
-                    Table_2_orderd_Y+=1
+                        Table_2_orderd_Y+=1
             if(x == 3):
                 Table_3 = 1
                 if(Table_3_order == 0):
@@ -411,7 +433,7 @@ class Customer:
                 if(Table_3_order == 5):
                     Table_3_orderd_T+=1
                 if(Table_3_order == 6):
-                    Table_3_orderd_Y+=1
+                        Table_3_orderd_Y+=1
             if(x == 4):
                 Table_4 = 1
                 if(Table_4_order == 0):
@@ -427,7 +449,7 @@ class Customer:
                 if(Table_4_order == 5):
                     Table_4_orderd_T+=1
                 if(Table_4_order == 6):
-                    Table_4_orderd_Y+=1
+                        Table_4_orderd_Y+=1
             if(x == 5):
                 Table_5 = 1
                 if(Table_5_order == 0):
@@ -460,7 +482,7 @@ class Customer:
                     Table_6_orderd_T+=1
                 if(Table_6_order == 6):
                     Table_6_orderd_Y+=1
-            timer = timer - 1000
+            customer_timer = customer_timer - 500
 
 class Messeage:
     def __init__(self):
@@ -539,6 +561,8 @@ def handle_events():
         if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_6)):
             serving_state.serving_table = 6
             game_framework.push_state(serving_state)
+        if  life == 0:
+            game_framework.push_state(gameover_state)
 
 
 def update():
