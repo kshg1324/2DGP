@@ -8,28 +8,30 @@ import cooking_state
 import start_state
 from pico2d import *
 
-name = "Gameover_State"
+name = "Stageclear_Stage"
 font = None
 
 gameover_state = 0
 
-class Game_over:
+class Stage_Clear:
     def __init__(self):
-        self.image = load_image('game_over.png')
+        self.image = load_image('stage_clear.png')
+        self.bgm = load_music('clear.mp3')
+        self.bgm.set_volume(64)
+        self.bgm.repeat_play()
     def update(self):
         pass
     def draw(self):
-        global serving
         self.image.draw(400, 300)
 
 
 def enter():
-    global game_over
-    game_over =Game_over()
+    global stage_clear
+    stage_clear = Stage_Clear()
 
 def exit():
-    global game_over
-    del(game_over)
+    global stage_clear
+    del(stage_clear)
 
 
 def pause():
@@ -180,11 +182,11 @@ def handle_events():
 
 
 def update():
-    game_over.update()
+    stage_clear.update()
     #pass
 
 
 def draw():
     clear_canvas()
-    game_over.draw()
+    stage_clear.draw()
     update_canvas()

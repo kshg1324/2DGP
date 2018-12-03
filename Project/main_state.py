@@ -12,7 +12,7 @@ import time
 import random
 import pause_state
 import gameover_state
-
+import stageclear_state
 
 name = "MainState"
 
@@ -109,6 +109,13 @@ Table_6_orderd_R = 0
 Table_6_orderd_T = 0
 Table_6_orderd_Y = 0
 
+Table_1_timer = 0
+Table_2_timer = 0
+Table_3_timer = 0
+Table_4_timer = 0
+Table_5_timer = 0
+Table_6_timer = 0
+
 time_literal = 0
 time_literal_2 = 0
 time_literal_3 = 0
@@ -119,6 +126,20 @@ food_literal_3 = 0.0
 food_literal_4 = 0.0
 food_literal_5 = 0.0
 food_literal_6 = 0.0
+
+customer_literal_1 = 0
+customer_literal_2 = 0
+customer_literal_3 = 0
+customer_literal_4 = 0
+customer_literal_5 = 0
+customer_literal_6 = 0
+
+a = 0
+b = 0
+c = 0
+d = 0
+e = 0
+f = 0
 
 food_timer = 0.0
 customer_timer = 0.0
@@ -223,15 +244,12 @@ class Frame:
         self.image8 = load_image('clock.png')
         self.image9 = load_image('money.png')
         self.font = load_font('ENCR10B.TTF', 16)
+        self.bgm = load_music('04.mp3')
+        self.bgm.set_volume(64)
+        self.bgm.repeat_play()
 
     def draw(self):
         global time_literal, food_literal_1,food_literal_2,food_literal_3,food_literal_4,food_literal_5,food_literal_6,food_1_stack,food_2_stack,food_3_stack,food_4_stack,food_5_stack,food_6_stack
-        food_timer_1 = get_time() - time_literal - food_literal_1
-        food_timer_2 = get_time() - time_literal - food_literal_2
-        food_timer_3 = get_time() - time_literal - food_literal_3
-        food_timer_4 = get_time() - time_literal - food_literal_4
-        food_timer_5 = get_time() - time_literal - food_literal_5
-        food_timer_6 = get_time() - time_literal - food_literal_6
         self.image2.clip_draw(100 * 1, 100 * 9, 100, 100 , 50 + 100 * 0, 50 + 100 * 5)
         self.image2.clip_draw(100 * 3, 100 * 1, 100, 100 , 50 + 100 * 1, 50 + 100 * 5)
         self.image2.clip_draw(100 * 0, 100 * 5, 100, 100 , 50 + 100 * 2, 50 + 100 * 5)
@@ -253,6 +271,8 @@ class Frame:
         self.image9.draw(50 + 100 * 6 - 5, 82.5 + 100 * 5 )
         self.image1.draw(100 * 4, 50 + 100 * 5)
         self.font.draw(25 + 100 * 7 -10,  49.5 + 100 * 5 , '(%3.2f)' % (Left_time - get_time() + time_literal), (0, 0, 0))
+        if((Left_time - get_time() + time_literal) < 0):
+            game_framework.push_state(stageclear_state)
         self.font.draw(25 + 100 * 7 - 10, 82.5  + 100 * 5 , '(%3.2f)' % (Money), (0, 0, 0))
 
         self.font.draw(50 + 100 * 0 + 20, 50 + 100 * 5 - 30 , '(%d)' % (food_1_stack), (0, 0, 0))
@@ -262,30 +282,38 @@ class Frame:
         self.font.draw(50 + 100 * 4 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_5_stack), (0, 0, 0))
         self.font.draw(50 + 100 * 5 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_6_stack), (0, 0, 0))
 
-        if(food_1_stack > 0):
-            if(food_timer_1 > 10):
-                food_1_stack-=1
-                food_literal_1 += 10
-        if(food_2_stack > 0):
-            if(food_timer_2 > 10):
-                food_2_stack-=1
-                food_literal_2 += 10
-        if(food_3_stack > 0):
-            if(food_timer_3 > 10):
-                food_3_stack-=1
-                food_literal_3 += 10
-        if(food_4_stack > 0):
-            if(food_timer_4 > 10):
-                food_4_stack-=1
-                food_literal_4 += 10
-        if(food_5_stack > 0):
-            if(food_timer_5 > 10):
-                food_5_stack-=1
-                food_literal_5 += 10
-        if(food_6_stack > 0):
-            if(food_timer_6 > 10):
-                food_6_stack-=1
-                food_literal_6 += 10
+
+
+        #if(food_1_stack > 0):
+        #    food_timer_1 = get_time() - time_literal + food_literal_1
+        #    if(food_timer_1 > 5):
+        #        food_1_stack-=1
+        #        food_literal_1 += 5
+        #if(food_2_stack > 0):
+        #    food_timer_2 = get_time() - time_literal + food_literal_2
+        #    if(food_timer_2 > 5):
+        #        food_2_stack-=1
+        #        food_literal_2 += 5
+        #if(food_3_stack > 0):
+        #    food_timer_3 = get_time() - time_literal + food_literal_3
+        #    if(food_timer_3 > 5):
+        #        food_3_stack-=1
+        #        food_literal_3 += 5
+        #if(food_4_stack > 0):
+        #    food_timer_4 = get_time() - time_literal + food_literal_4
+        #    if(food_timer_4 > 5):
+        #        food_4_stack-=1
+        #        food_literal_4 += 5
+        #if(food_5_stack > 0):
+        #    food_timer_5 = get_time() - time_literal + food_literal_5
+        #    if(food_timer_5 > 5):
+        #        food_5_stack-=1
+        #        food_literal_5 += 5
+        #if(food_6_stack > 0):
+        #    food_timer_6 = get_time() - time_literal + food_literal_6
+        #    if(food_timer_6 > 5):
+        #        food_6_stack-=1
+        #        food_literal_6 += 5
 
         #self.image1.draw(100 * 4, 50 + 100 * 5)
         #self.image1.draw(100 * 4, 50 + 100 * 5)
@@ -309,10 +337,24 @@ class Customer:
         #self.customer_frame = 0
     def draw(self):
         #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
-        global time_literal,time_literal_2, x, life, Money, Table_1_order,Table_2_order,Table_3_order,Table_4_order,Table_5_order,Table_6_order, customer_frame, customer_timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6, Table_1_orderd_Q,Table_1_orderd_W,Table_1_orderd_E,Table_1_orderd_R,Table_1_orderd_T,Table_1_orderd_Y,Table_2_orderd_Q,Table_2_orderd_W,Table_2_orderd_E,Table_2_orderd_R,Table_2_orderd_T,Table_2_orderd_Y,Table_3_orderd_Q,Table_3_orderd_W,Table_3_orderd_E,Table_3_orderd_R,Table_3_orderd_T,Table_3_orderd_Y,Table_4_orderd_Q,Table_4_orderd_W,Table_4_orderd_E,Table_4_orderd_R,Table_4_orderd_T,Table_4_orderd_Y,Table_5_orderd_Q,Table_5_orderd_W,Table_5_orderd_E,Table_5_orderd_R,Table_5_orderd_T,Table_5_orderd_Y,Table_6_orderd_Q,Table_6_orderd_W,Table_6_orderd_E,Table_6_orderd_R,Table_6_orderd_T,Table_6_orderd_Y
+        global a, b, c, d, e, f, customer_literal_1, customer_literal_2 ,customer_literal_3, customer_literal_4, customer_literal_5, customer_literal_6, time_literal,time_literal_2, x, life, Money, Table_1_order,Table_2_order,Table_3_order,Table_4_order,Table_5_order,Table_6_order, customer_frame, customer_timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6, Table_1_orderd_Q,Table_1_orderd_W,Table_1_orderd_E,Table_1_orderd_R,Table_1_orderd_T,Table_1_orderd_Y,Table_2_orderd_Q,Table_2_orderd_W,Table_2_orderd_E,Table_2_orderd_R,Table_2_orderd_T,Table_2_orderd_Y,Table_3_orderd_Q,Table_3_orderd_W,Table_3_orderd_E,Table_3_orderd_R,Table_3_orderd_T,Table_3_orderd_Y,Table_4_orderd_Q,Table_4_orderd_W,Table_4_orderd_E,Table_4_orderd_R,Table_4_orderd_T,Table_4_orderd_Y,Table_5_orderd_Q,Table_5_orderd_W,Table_5_orderd_E,Table_5_orderd_R,Table_5_orderd_T,Table_5_orderd_Y,Table_6_orderd_Q,Table_6_orderd_W,Table_6_orderd_E,Table_6_orderd_R,Table_6_orderd_T,Table_6_orderd_Y
         customer_frame = (customer_frame + 0.05) % 8
         customer_timer = get_time() - time_literal - time_literal_2
         if (Table_1 == 1):
+            if(a == 0):
+                customer_literal_1 = get_time()
+                a = 1
+            Table_1_timer = get_time() - customer_literal_1
+            if(Table_1_timer > 15):
+                life -= 1
+                Table_1 = 0
+                Table_1_orderd_Q = 0
+                Table_1_orderd_W = 0
+                Table_1_orderd_E = 0
+                Table_1_orderd_R = 0
+                Table_1_orderd_T = 0
+                Table_1_orderd_Y = 0
+                a = 0
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 16.5 + 33 * 0, 50 + 33 * 5)
             self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 16.5 + 33 * 1, 50 + 33 * 5)
@@ -329,7 +371,31 @@ class Customer:
             if(Table_1_orderd_Q == 0 and Table_1_orderd_W == 0 and Table_1_orderd_E == 0 and Table_1_orderd_R == 0 and Table_1_orderd_T == 0 and Table_1_orderd_Y == 0):
                 Table_1 = 0
                 Money += 10
+            if (Table_1_orderd_Q < 0 or Table_1_orderd_W < 0 or Table_1_orderd_E < 0 or Table_1_orderd_R < 0 or Table_1_orderd_T < 0 or Table_1_orderd_Y < 0):
+                Table_1 = 0
+                Table_1_orderd_Q = 0
+                Table_1_orderd_W = 0
+                Table_1_orderd_E = 0
+                Table_1_orderd_R = 0
+                Table_1_orderd_T = 0
+                Table_1_orderd_Y = 0
+                life -= 1
         if (Table_2 == 1):
+            if(b == 0):
+                customer_literal_2 = get_time()
+                b = 1
+            Table_2_timer = get_time() - customer_literal_2
+            if(Table_2_timer > 15):
+                life -= 1
+                Table_2 = 0
+                Table_2_orderd_Q = 0
+                Table_2_orderd_W = 0
+                Table_2_orderd_E = 0
+                Table_2_orderd_R = 0
+                Table_2_orderd_T = 0
+                Table_2_orderd_Y = 0
+                b = 0
+
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 300 + 16.5 + 33 * 0, 50 + 33 * 5)
             self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 300 + 16.5 + 33 * 1, 50 + 33 * 5)
@@ -346,7 +412,32 @@ class Customer:
             if(Table_2_orderd_Q == 0 and Table_2_orderd_W == 0 and Table_2_orderd_E == 0 and Table_2_orderd_R == 0 and Table_2_orderd_T == 0 and Table_2_orderd_Y == 0):
                 Table_2 = 0
                 Money += 10
+            if (Table_2_orderd_Q < 0 or Table_2_orderd_W < 0 or Table_2_orderd_E < 0 or Table_2_orderd_R < 0 or Table_2_orderd_T < 0 or Table_2_orderd_Y < 0):
+                Table_2 = 0
+                Table_2_orderd_Q = 0
+                Table_2_orderd_W = 0
+                Table_2_orderd_E = 0
+                Table_2_orderd_R = 0
+                Table_2_orderd_T = 0
+                Table_2_orderd_Y = 0
+                life -= 1
+
         if (Table_3 == 1):
+            if (c == 0):
+                customer_literal_3 = get_time()
+                c = 1
+            Table_3_timer = get_time() - customer_literal_3
+            if(Table_3_timer > 15):
+                life -= 1
+                Table_3 = 0
+                Table_3_orderd_Q = 0
+                Table_3_orderd_W = 0
+                Table_3_orderd_E = 0
+                Table_3_orderd_R = 0
+                Table_3_orderd_T = 0
+                Table_3_orderd_Y = 0
+                c = 0
+
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 600 + 16.5 + 33 * 0, 50 + 33 * 5)
             self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 600 + 16.5 + 33 * 1, 50 + 33 * 5)
@@ -363,7 +454,31 @@ class Customer:
             if(Table_3_orderd_Q == 0 and Table_3_orderd_W == 0 and Table_3_orderd_E == 0 and Table_3_orderd_R == 0 and Table_3_orderd_T == 0 and Table_3_orderd_Y == 0):
                 Table_3 = 0
                 Money += 10
+            if (Table_3_orderd_Q < 0 or Table_3_orderd_W < 0 or Table_3_orderd_E < 0 or Table_3_orderd_R < 0 or Table_3_orderd_T < 0 or Table_3_orderd_Y < 0):
+                Table_3 = 0
+                Table_3_orderd_Q = 0
+                Table_3_orderd_W = 0
+                Table_3_orderd_E = 0
+                Table_3_orderd_R = 0
+                Table_3_orderd_T = 0
+                Table_3_orderd_Y = 0
+                life -= 1
         if (Table_4 == 1):
+            if (d == 0):
+                customer_literal_4 = get_time()
+                d = 1
+            Table_4_timer = get_time() - customer_literal_4
+            if(Table_4_timer > 15):
+                life -= 1
+                Table_4 = 0
+                Table_4_orderd_Q = 0
+                Table_4_orderd_W = 0
+                Table_4_orderd_E = 0
+                Table_4_orderd_R = 0
+                Table_4_orderd_T = 0
+                Table_4_orderd_Y = 0
+                d = 0
+
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 16.5 + 33 * 0, -100 + 33 * 5)
             self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 16.5 + 33 * 1, -100 + 33 * 5)
@@ -380,7 +495,31 @@ class Customer:
             if(Table_4_orderd_Q == 0 and Table_4_orderd_W == 0 and Table_4_orderd_E == 0 and Table_4_orderd_R == 0 and Table_4_orderd_T == 0 and Table_4_orderd_Y == 0):
                 Table_4 = 0
                 Money += 10
+            if (Table_4_orderd_Q < 0 or Table_4_orderd_W < 0 or Table_4_orderd_E < 0 or Table_4_orderd_R < 0 or Table_4_orderd_T < 0 or Table_4_orderd_Y < 0):
+                Table_4 = 0
+                Table_4_orderd_Q = 0
+                Table_4_orderd_W = 0
+                Table_4_orderd_E = 0
+                Table_4_orderd_R = 0
+                Table_4_orderd_T = 0
+                Table_4_orderd_Y = 0
+                life -= 1
         if (Table_5 == 1):
+            if (e == 0):
+                customer_literal_5 = get_time()
+                e = 1
+            Table_5_timer = get_time() - customer_literal_5
+            if(Table_5_timer > 15):
+                life -= 1
+                Table_5 = 0
+                Table_5_orderd_Q = 0
+                Table_5_orderd_W = 0
+                Table_5_orderd_E = 0
+                Table_5_orderd_R = 0
+                Table_5_orderd_T = 0
+                Table_5_orderd_Y = 0
+                e = 0
+
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 300 + 16.5 + 33 * 0, -100 + 33 * 5)
             self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 300 + 16.5 + 33 * 1, -100 + 33 * 5)
@@ -397,7 +536,31 @@ class Customer:
             if(Table_5_orderd_Q == 0 and Table_5_orderd_W == 0 and Table_5_orderd_E == 0 and Table_5_orderd_R == 0 and Table_5_orderd_T == 0 and Table_5_orderd_Y == 0):
                 Table_5 = 0
                 Money += 10
+            if (Table_5_orderd_Q < 0 or Table_5_orderd_W < 0 or Table_5_orderd_E < 0 or Table_5_orderd_R < 0 or Table_5_orderd_T < 0 or Table_5_orderd_Y < 0):
+                Table_5 = 0
+                Table_5_orderd_Q = 0
+                Table_5_orderd_W = 0
+                Table_5_orderd_E = 0
+                Table_5_orderd_R = 0
+                Table_5_orderd_T = 0
+                Table_5_orderd_Y = 0
+                life -= 1
         if (Table_6 == 1):
+            if (f == 0):
+                customer_literal_6 = get_time()
+                f = 1
+            Table_6_timer = get_time() - customer_literal_6
+            if(Table_6_timer > 15):
+                life -= 1
+                Table_6 = 0
+                Table_6_orderd_Q = 0
+                Table_6_orderd_W = 0
+                Table_6_orderd_E = 0
+                Table_6_orderd_R = 0
+                Table_6_orderd_T = 0
+                Table_6_orderd_Y = 0
+                e = 0
+
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 0)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 600 + 16.5 + 33 * 0, -100 + 33 * 5)
             self.image2.clip_draw(33 * 3, 33 * 1, 33, 33, 600 + 16.5 + 33 * 1, -100 + 33 * 5)
@@ -414,6 +577,15 @@ class Customer:
             if(Table_6_orderd_Q == 0 and Table_6_orderd_W == 0 and Table_6_orderd_E == 0 and Table_6_orderd_R == 0 and Table_6_orderd_T == 0 and Table_6_orderd_Y == 0):
                 Table_6 = 0
                 Money+=10
+            if (Table_5_orderd_Q < 0 or Table_5_orderd_W < 0 or Table_5_orderd_E < 0 or Table_5_orderd_R < 0 or Table_5_orderd_T < 0 or Table_5_orderd_Y < 0):
+                Table_6 = 0
+                Table_6_orderd_Q = 0
+                Table_6_orderd_W = 0
+                Table_6_orderd_E = 0
+                Table_6_orderd_R = 0
+                Table_6_orderd_T = 0
+                Table_6_orderd_Y = 0
+                life -= 1
 
 
 
