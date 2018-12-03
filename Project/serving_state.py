@@ -51,6 +51,22 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_q):
+            main_state.food_1_stack-=1
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_w):
+            main_state.food_2_stack-=1
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_e):
+            main_state.food_3_stack-=1
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
+            main_state.food_4_stack-=1
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_t):
+            main_state.food_5_stack-=1
+        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_y):
+            main_state.food_6_stack-=1
+
+
+
+
         # elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_w):
         #     main_state.food_2_stack+=1
         # elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_e):

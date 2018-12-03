@@ -131,119 +131,150 @@ def handle_events():
     global cook_stack_1, cook_stack_2, cook_stack_3, cook_stack_4, cook_stack_5, cook_stack_6, cook_type
     events = get_events()
     for event in events:
-        if event.type == SDL_QUIT:
-            game_framework.quit()
-        elif (cook_type == 0):
-            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_q)):
-                cook_type = 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_w)):
-                cook_type = 2
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)):
-                cook_type = 3
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)):
-                cook_type = 4
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_t)):
-                cook_type = 5
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_y)):
-                cook_type = 6
-        elif(cook_type == 1):
-            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_o)) and cook_stack_1 == 0:
-                cook_stack_1 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_m)) and cook_stack_1 == 1:
-                cook_stack_1 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e))and cook_stack_1 == 2:
-                cook_stack_1 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_l))and cook_stack_1 == 3:
-                cook_stack_1 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e))and cook_stack_1 == 4:
-                cook_stack_1 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_t))and cook_stack_1 == 5:
-                main_state.food_1_stack += 1
-                cook_stack_1 = 0
-                cook_type = 0
-                game_framework.pop_state()
-        elif (cook_type == 2):
-            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_h))and cook_stack_2 == 0:
-                cook_stack_2 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_a)) and cook_stack_2 == 1:
-                cook_stack_2 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_m)) and cook_stack_2 == 2:
-                cook_stack_2 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_b)) and cook_stack_2 == 3:
-                cook_stack_2 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_u)) and cook_stack_2 == 4:
-                cook_stack_2 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)) and cook_stack_2 == 5:
-                cook_stack_2 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_g)) and cook_stack_2 == 6:
-                cook_stack_2 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_2 == 7:
-                cook_stack_2 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)) and cook_stack_2 == 8:
-                main_state.food_2_stack += 1
-                cook_stack_2 = 0
-                cook_type = 0
-                game_framework.pop_state()
-        elif (cook_type == 3):
-            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_c))and cook_stack_3 == 0:
-                cook_stack_3 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_o)) and cook_stack_3 == 1:
-                cook_stack_3 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_f)) and cook_stack_3 == 2:
-                cook_stack_3 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_f)) and cook_stack_3 == 3:
-                cook_stack_3 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_3 == 4:
-                cook_stack_3 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_3 == 5:
-                main_state.food_3_stack += 1
-                cook_stack_3 = 0
-                cook_type = 0
-                game_framework.pop_state()
-        elif (cook_type == 4):
-            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_p))and cook_stack_4 == 0:
-                cook_stack_4 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_i)) and cook_stack_4 == 1:
-                cook_stack_4 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_z)) and cook_stack_4 == 2:
-                cook_stack_4 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_z)) and cook_stack_4 == 3:
-                cook_stack_4 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_a)) and cook_stack_4 == 4:
-                main_state.food_4_stack += 1
-                cook_stack_4 = 0
-                cook_type = 0
-                game_framework.pop_state()
-        elif (cook_type == 5):
-            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_f))and cook_stack_5 == 0:
-                cook_stack_5 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_i)) and cook_stack_5 == 1:
-                cook_stack_5 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_s)) and cook_stack_5 == 2:
-                cook_stack_5 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_h)) and cook_stack_5 == 3:
-                main_state.food_5_stack += 1
-                cook_stack_5 = 0
-                cook_type = 0
-                game_framework.pop_state()
-        elif (cook_type == 6):
-            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_p)) and cook_stack_6 == 0:
-                cook_stack_6 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_u)) and cook_stack_6 == 1:
-                cook_stack_6 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_d)) and cook_stack_6 == 2:
-                cook_stack_6 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_d)) and cook_stack_6 == 3:
-                cook_stack_6 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_i)) and cook_stack_6 == 4:
-                cook_stack_6 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_n)) and cook_stack_6 == 5:
-                cook_stack_6 += 1
-            elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_g)) and cook_stack_6 == 6:
-                main_state.food_6_stack += 1
-                cook_stack_6 = 0
-                cook_type = 0
-                game_framework.pop_state()
+        if (event.type == SDL_KEYDOWN):
+            if event.type == SDL_QUIT:
+                game_framework.quit()
+            elif (cook_type == 0):
+                if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_q)):
+                    cook_type = 1
+                    main_state.Money -= 5
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_w)):
+                    cook_type = 2
+                    main_state.Money -= 5
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)):
+                    cook_type = 3
+                    main_state.Money -= 5
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)):
+                    cook_type = 4
+                    main_state.Money -= 5
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_t)):
+                    cook_type = 5
+                    main_state.Money -= 5
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_y)):
+                    cook_type = 6
+                    main_state.Money -= 5
+            elif(cook_type == 1):
+                if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_o)) and cook_stack_1 == 0:
+                    cook_stack_1 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_m)) and cook_stack_1 == 1:
+                    cook_stack_1 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e))and cook_stack_1 == 2:
+                    cook_stack_1 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_l))and cook_stack_1 == 3:
+                    cook_stack_1 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e))and cook_stack_1 == 4:
+                    cook_stack_1 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_t))and cook_stack_1 == 5:
+                    main_state.food_1_stack += 1
+                    cook_stack_1 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+                else:
+                    cook_stack_1 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+            elif (cook_type == 2):
+                if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_h))and cook_stack_2 == 0:
+                    cook_stack_2 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_a)) and cook_stack_2 == 1:
+                    cook_stack_2 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_m)) and cook_stack_2 == 2:
+                    cook_stack_2 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_b)) and cook_stack_2 == 3:
+                    cook_stack_2 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_u)) and cook_stack_2 == 4:
+                    cook_stack_2 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)) and cook_stack_2 == 5:
+                    cook_stack_2 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_g)) and cook_stack_2 == 6:
+                    cook_stack_2 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_2 == 7:
+                    cook_stack_2 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)) and cook_stack_2 == 8:
+                    main_state.food_2_stack += 1
+                    cook_stack_2 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+                else:
+                    cook_stack_2 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+            elif (cook_type == 3):
+                if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_c))and cook_stack_3 == 0:
+                    cook_stack_3 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_o)) and cook_stack_3 == 1:
+                    cook_stack_3 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_f)) and cook_stack_3 == 2:
+                    cook_stack_3 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_f)) and cook_stack_3 == 3:
+                    cook_stack_3 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_3 == 4:
+                    cook_stack_3 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_3 == 5:
+                    main_state.food_3_stack += 1
+                    cook_stack_3 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+                else:
+                    cook_stack_3 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+            elif (cook_type == 4):
+                if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_p))and cook_stack_4 == 0:
+                    cook_stack_4 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_i)) and cook_stack_4 == 1:
+                    cook_stack_4 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_z)) and cook_stack_4 == 2:
+                    cook_stack_4 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_z)) and cook_stack_4 == 3:
+                    cook_stack_4 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_a)) and cook_stack_4 == 4:
+                    main_state.food_4_stack += 1
+                    cook_stack_4 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+                else:
+                    cook_stack_4 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+            elif (cook_type == 5):
+                if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_f))and cook_stack_5 == 0:
+                    cook_stack_5 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_i)) and cook_stack_5 == 1:
+                    cook_stack_5 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_s)) and cook_stack_5 == 2:
+                    cook_stack_5 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_h)) and cook_stack_5 == 3:
+                    main_state.food_5_stack += 1
+                    cook_stack_5 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+                else:
+                    cook_stack_5 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+            elif (cook_type == 6):
+                if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_p)) and cook_stack_6 == 0:
+                    cook_stack_6 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_u)) and cook_stack_6 == 1:
+                    cook_stack_6 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_d)) and cook_stack_6 == 2:
+                    cook_stack_6 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_d)) and cook_stack_6 == 3:
+                    cook_stack_6 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_i)) and cook_stack_6 == 4:
+                    cook_stack_6 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_n)) and cook_stack_6 == 5:
+                    cook_stack_6 += 1
+                elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_g)) and cook_stack_6 == 6:
+                    main_state.food_6_stack += 1
+                    cook_stack_6 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
+                else:
+                    cook_stack_6 = 0
+                    cook_type = 0
+                    game_framework.pop_state()
 
 def update():
     cooking.update()
