@@ -11,9 +11,23 @@ import serving_state
 import time
 import random
 import pause_state
+import gameover_state
 
 
 name = "MainState"
+
+
+# Boy Run Speed
+PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
+RUN_SPEED_KMPH = 20.0  # Km / Hour
+RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
+RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
+RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+
+# Boy Action Speed
+TIME_PER_ACTION = 0.5
+ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
+FRAMES_PER_ACTION = 8
 
 boy = None
 floor = None
@@ -23,6 +37,7 @@ sink = None
 cabinet = None
 kitchen_floor = None
 frame = None
+table = None
 font = None
 customer = None
 messeage = None
@@ -95,18 +110,9 @@ Table_6_orderd_T = 0
 Table_6_orderd_Y = 0
 
 time_literal = 0
-# Boy Run Speed
-PIXEL_PER_METER = (10.0 / 0.3)  # 10 pixel 30 cm
-RUN_SPEED_KMPH = 20.0  # Km / Hour
-RUN_SPEED_MPM = (RUN_SPEED_KMPH * 1000.0 / 60.0)
-RUN_SPEED_MPS = (RUN_SPEED_MPM / 60.0)
-RUN_SPEED_PPS = (RUN_SPEED_MPS * PIXEL_PER_METER)
+time_literal_2 = 0
 
-# Boy Action Speed
-TIME_PER_ACTION = 0.5
-ACTION_PER_TIME = 1.0 / TIME_PER_ACTION
-FRAMES_PER_ACTION = 8
-
+food_timer = 0.0
 customer_timer = 0.0
 messeage_timer = 0.0
 customer_frame = 0
@@ -224,6 +230,9 @@ class Frame:
             self.image4.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
         elif life == 1:
             self.image5.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
+        elif life == 0:
+            self.image6.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
+            game_framework.push_state(gameover_state)
         #self.image3.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
         self.image7.draw(50 + 100 * 6 - 5, 16.5 + 100 * 5 )
         self.image8.draw(50 + 100 * 6 - 5, 49.5 + 100 * 5 )
@@ -238,6 +247,9 @@ class Frame:
         self.font.draw(50 + 100 * 3 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_4_stack), (0, 0, 0))
         self.font.draw(50 + 100 * 4 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_5_stack), (0, 0, 0))
         self.font.draw(50 + 100 * 5 + 20, 50 + 100 * 5 - 30, '(%d)' % (food_6_stack), (0, 0, 0))
+
+        if(food_1_stack > 0):
+
         #self.image1.draw(100 * 4, 50 + 100 * 5)
         #self.image1.draw(100 * 4, 50 + 100 * 5)
         #character.clip_draw(frame * 100, 0 * 1, 100, 100, x, y)
@@ -250,17 +262,19 @@ class Table:
         for i in range(3):
             for j in range(2):
                 self.image.draw(100 + 300 * i, 75 + 150 * j)
+
 class Customer:
     def __init__(self):
         self.image = load_image('animation_sheet.png')
         self.image2 = load_image('mini_menu.png')
         self.font = load_font('ENCR10B.TTF', 16)
+
         #self.customer_frame = 0
     def draw(self):
         #self.customer_frame = (self.customer_frame + FRAMES_PER_ACTION * ACTION_PER_TIME * frame_time) % FRAMES_PER_ACTION
-        global x, life, Money, Table_1_order,Table_2_order,Table_3_order,Table_4_order,Table_5_order,Table_6_order, customer_frame, customer_timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6, Table_1_orderd_Q,Table_1_orderd_W,Table_1_orderd_E,Table_1_orderd_R,Table_1_orderd_T,Table_1_orderd_Y,Table_2_orderd_Q,Table_2_orderd_W,Table_2_orderd_E,Table_2_orderd_R,Table_2_orderd_T,Table_2_orderd_Y,Table_3_orderd_Q,Table_3_orderd_W,Table_3_orderd_E,Table_3_orderd_R,Table_3_orderd_T,Table_3_orderd_Y,Table_4_orderd_Q,Table_4_orderd_W,Table_4_orderd_E,Table_4_orderd_R,Table_4_orderd_T,Table_4_orderd_Y,Table_5_orderd_Q,Table_5_orderd_W,Table_5_orderd_E,Table_5_orderd_R,Table_5_orderd_T,Table_5_orderd_Y,Table_6_orderd_Q,Table_6_orderd_W,Table_6_orderd_E,Table_6_orderd_R,Table_6_orderd_T,Table_6_orderd_Y
+        global time_literal,time_literal_2, x, life, Money, Table_1_order,Table_2_order,Table_3_order,Table_4_order,Table_5_order,Table_6_order, customer_frame, customer_timer,Table_1,Table_2,Table_3,Table_4,Table_5,Table_6, Table_1_orderd_Q,Table_1_orderd_W,Table_1_orderd_E,Table_1_orderd_R,Table_1_orderd_T,Table_1_orderd_Y,Table_2_orderd_Q,Table_2_orderd_W,Table_2_orderd_E,Table_2_orderd_R,Table_2_orderd_T,Table_2_orderd_Y,Table_3_orderd_Q,Table_3_orderd_W,Table_3_orderd_E,Table_3_orderd_R,Table_3_orderd_T,Table_3_orderd_Y,Table_4_orderd_Q,Table_4_orderd_W,Table_4_orderd_E,Table_4_orderd_R,Table_4_orderd_T,Table_4_orderd_Y,Table_5_orderd_Q,Table_5_orderd_W,Table_5_orderd_E,Table_5_orderd_R,Table_5_orderd_T,Table_5_orderd_Y,Table_6_orderd_Q,Table_6_orderd_W,Table_6_orderd_E,Table_6_orderd_R,Table_6_orderd_T,Table_6_orderd_Y
         customer_frame = (customer_frame + 0.05) % 8
-
+        customer_timer = get_time() - time_literal - time_literal_2
         if (Table_1 == 1):
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 16.5 + 33 * 0, 50 + 33 * 5)
@@ -366,9 +380,7 @@ class Customer:
 
 
 
-        if customer_timer < 500:
-            customer_timer = (customer_timer + 1)
-        if customer_timer == 500:
+        if (customer_timer > 5):
             if(Table_1 == 0):
                 x = 1
             elif(Table_2 == 0):
@@ -482,7 +494,7 @@ class Customer:
                     Table_6_orderd_T+=1
                 if(Table_6_order == 6):
                     Table_6_orderd_Y+=1
-            customer_timer = customer_timer - 500
+            time_literal_2 += 5
 
 class Messeage:
     def __init__(self):
@@ -561,8 +573,7 @@ def handle_events():
         if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_6)):
             serving_state.serving_table = 6
             game_framework.push_state(serving_state)
-        if  life == 0:
-            game_framework.push_state(gameover_state)
+
 
 
 def update():
