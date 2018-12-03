@@ -509,7 +509,23 @@ def handle_events():
             game_framework.push_state(cooking_state)
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
-        if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_1)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_2)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_3)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_4)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_5)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_6)):
+        if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_1)):
+            serving_state.serving_table = 1
+            game_framework.push_state(serving_state)
+        if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_2)):
+            serving_state.serving_table = 2
+            game_framework.push_state(serving_state)
+        if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_3)):
+            serving_state.serving_table = 3
+            game_framework.push_state(serving_state)
+        if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_4)):
+            serving_state.serving_table = 4
+            game_framework.push_state(serving_state)
+        if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_5)):
+            serving_state.serving_table = 5
+            game_framework.push_state(serving_state)
+        if  ((event.type, event.key) == (SDL_KEYDOWN, SDLK_6)):
+            serving_state.serving_table = 6
             game_framework.push_state(serving_state)
 
 

@@ -9,6 +9,8 @@ from pico2d import *
 name = "Serving_State"
 font = None
 
+serving_table = 0
+
 class Serving:
     def __init__(self):
         self.image1 = load_image('cooking_background.png')
@@ -51,18 +53,92 @@ def handle_events():
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_q):
+        elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE)):
+            game_framework.pop_state()
+        elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_q)) and main_state.food_1_stack > 0:
             main_state.food_1_stack-=1
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_w):
+            if(serving_table == 1):
+                main_state.Table_1_orderd_Q-=1
+            elif(serving_table == 2):
+                main_state.Table_2_orderd_Q-=1
+            elif(serving_table == 3):
+                main_state.Table_3_orderd_Q-=1
+            elif(serving_table == 4):
+                main_state.Table_4_orderd_Q-=1
+            elif(serving_table == 5):
+                main_state.Table_5_orderd_Q-=1
+            elif(serving_table == 6):
+                main_state.Table_6_orderd_Q-=1
+        elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_w)) and main_state.food_2_stack > 0:
             main_state.food_2_stack-=1
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_e):
+            if(serving_table == 1):
+                main_state.Table_1_orderd_W-=1
+            elif(serving_table == 2):
+                main_state.Table_2_orderd_W-=1
+            elif(serving_table == 3):
+                main_state.Table_3_orderd_W-=1
+            elif(serving_table == 4):
+                main_state.Table_4_orderd_W-=1
+            elif(serving_table == 5):
+                main_state.Table_5_orderd_W-=1
+            elif(serving_table == 6):
+                main_state.Table_6_orderd_W-=1
+        elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and main_state.food_3_stack > 0:
             main_state.food_3_stack-=1
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_r):
+            if(serving_table == 1):
+                main_state.Table_1_orderd_E-=1
+            elif(serving_table == 2):
+                main_state.Table_2_orderd_E-=1
+            elif(serving_table == 3):
+                main_state.Table_3_orderd_E-=1
+            elif(serving_table == 4):
+                main_state.Table_4_orderd_E-=1
+            elif(serving_table == 5):
+                main_state.Table_5_orderd_E-=1
+            elif(serving_table == 6):
+                main_state.Table_6_orderd_E-=1
+        elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)) and main_state.food_4_stack > 0:
             main_state.food_4_stack-=1
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_t):
+            if(serving_table == 1):
+                main_state.Table_1_orderd_R-=1
+            elif(serving_table == 2):
+                main_state.Table_2_orderd_R-=1
+            elif(serving_table == 3):
+                main_state.Table_3_orderd_R-=1
+            elif(serving_table == 4):
+                main_state.Table_4_orderd_R-=1
+            elif(serving_table == 5):
+                main_state.Table_5_orderd_R-=1
+            elif(serving_table == 6):
+                main_state.Table_6_orderd_R-=1
+        elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_t)) and main_state.food_5_stack > 0:
             main_state.food_5_stack-=1
-        elif (event.type, event.key) == (SDL_KEYDOWN, SDLK_y):
+            if(serving_table == 1):
+                main_state.Table_1_orderd_T-=1
+            elif(serving_table == 2):
+                main_state.Table_2_orderd_T-=1
+            elif(serving_table == 3):
+                main_state.Table_3_orderd_T-=1
+            elif(serving_table == 4):
+                main_state.Table_4_orderd_T-=1
+            elif(serving_table == 5):
+                main_state.Table_5_orderd_T-=1
+            elif(serving_table == 6):
+                main_state.Table_6_orderd_T-=1
+        elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_y)) and main_state.food_6_stack > 0:
             main_state.food_6_stack-=1
+            if(serving_table == 1):
+                main_state.Table_1_orderd_Y-=1
+            elif(serving_table == 2):
+                main_state.Table_2_orderd_Y-=1
+            elif(serving_table == 3):
+                main_state.Table_3_orderd_Y-=1
+            elif(serving_table == 4):
+                main_state.Table_4_orderd_Y-=1
+            elif(serving_table == 5):
+                main_state.Table_5_orderd_Y-=1
+            elif(serving_table == 6):
+                main_state.Table_6_orderd_Y-=1
 
 
 
@@ -99,5 +175,6 @@ def draw():
     main_state.wall.draw()
     main_state.frame.draw()
     main_state.table.draw()
+    main_state.customer.draw()
     serving.draw()
     update_canvas()
