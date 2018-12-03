@@ -280,8 +280,8 @@ def handle_events():
             game_framework.push_state(cooking_state)
         if (event.type, event.key) == (SDL_KEYDOWN, SDLK_p):
             game_framework.push_state(pause_state)
-        #if (event.type, event.key) == (SDL_KEYDOWN, SDLK_LSHIFT):
-        #    game_framework.push_state(serving_state)
+        if (event.type, event.key) == (SDL_KEYDOWN, SDLK_LSHIFT):
+            game_framework.push_state(serving_state)
 
 
 def update():
