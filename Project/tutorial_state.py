@@ -11,7 +11,7 @@ image3 = None
 
 def enter():
     global image
-    image = load_image('main2.png')
+    image = load_image('tutorial.png')
 
 
 

@@ -22,6 +22,9 @@ class Cooking:
         self.image1 = load_image('cooking_background.png')
         self.image2 = load_image('menu2.png')
         self.font = load_font('ENCR10B.TTF', 16)
+        self.cooking_sound = load_wav('pickup.wav')
+        self.cooking_sound.set_volume(64)
+
     def update(self):
         pass
     def draw(self):
@@ -172,6 +175,7 @@ def handle_events():
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e))and cook_stack_1 == 4:
                     cook_stack_1 += 1
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_t))and cook_stack_1 == 5:
+                    cooking.cooking_sound.play()
                     main_state.food_1_stack += 1
                     cook_stack_1 = 0
                     cook_type = 0
@@ -200,6 +204,7 @@ def handle_events():
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_2 == 7:
                     cook_stack_2 += 1
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_r)) and cook_stack_2 == 8:
+                    cooking.cooking_sound.play()
                     main_state.food_2_stack += 1
                     cook_stack_2 = 0
                     cook_type = 0
@@ -222,6 +227,7 @@ def handle_events():
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_3 == 4:
                     cook_stack_3 += 1
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_e)) and cook_stack_3 == 5:
+                    cooking.cooking_sound.play()
                     main_state.food_3_stack += 1
                     cook_stack_3 = 0
                     cook_type = 0
@@ -242,6 +248,7 @@ def handle_events():
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_z)) and cook_stack_4 == 3:
                     cook_stack_4 += 1
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_a)) and cook_stack_4 == 4:
+                    cooking.cooking_sound.play()
                     main_state.food_4_stack += 1
                     cook_stack_4 = 0
                     cook_type = 0
@@ -260,6 +267,7 @@ def handle_events():
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_s)) and cook_stack_5 == 2:
                     cook_stack_5 += 1
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_h)) and cook_stack_5 == 3:
+                    cooking.cooking_sound.play()
                     main_state.food_5_stack += 1
                     cook_stack_5 = 0
                     cook_type = 0
@@ -284,6 +292,7 @@ def handle_events():
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_n)) and cook_stack_6 == 5:
                     cook_stack_6 += 1
                 elif ((event.type, event.key) == (SDL_KEYDOWN, SDLK_g)) and cook_stack_6 == 6:
+                    cooking.cooking_sound.play()
                     main_state.food_6_stack += 1
                     cook_stack_6 = 0
                     cook_type = 0
