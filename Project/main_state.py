@@ -13,7 +13,7 @@ import random
 import pause_state
 import gameover_state
 import stageclear_state
-
+import start_state
 name = "MainState"
 
 
@@ -264,7 +264,8 @@ class Frame:
             self.image5.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
         elif life == 0:
             self.image6.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
-            game_framework.push_state(gameover_state)
+            if(start_state.CHEAT == 0):
+                game_framework.push_state(gameover_state)
         #self.image3.draw(50 + 100 * 7 - 5, 16.5 + 100 * 5 + 5)
         self.image7.draw(50 + 100 * 6 - 5, 16.5 + 100 * 5 )
         self.image8.draw(50 + 100 * 6 - 5, 49.5 + 100 * 5 )
@@ -345,7 +346,7 @@ class Customer:
                 customer_literal_1 = get_time()
                 a = 1
             Table_1_timer = get_time() - customer_literal_1
-            if(Table_1_timer > 15):
+            if(Table_1_timer > 33):
                 life -= 1
                 Table_1 = 0
                 Table_1_orderd_Q = 0
@@ -354,6 +355,7 @@ class Customer:
                 Table_1_orderd_R = 0
                 Table_1_orderd_T = 0
                 Table_1_orderd_Y = 0
+                Money -= 10
                 a = 0
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 1)
             self.image2.clip_draw(33 * 1, 33 * 9, 33, 33, 16.5 + 33 * 0, 50 + 33 * 5)
@@ -379,13 +381,14 @@ class Customer:
                 Table_1_orderd_R = 0
                 Table_1_orderd_T = 0
                 Table_1_orderd_Y = 0
+                Money -= 10
                 life -= 1
         if (Table_2 == 1):
             if(b == 0):
                 customer_literal_2 = get_time()
                 b = 1
             Table_2_timer = get_time() - customer_literal_2
-            if(Table_2_timer > 15):
+            if(Table_2_timer > 33):
                 life -= 1
                 Table_2 = 0
                 Table_2_orderd_Q = 0
@@ -394,6 +397,7 @@ class Customer:
                 Table_2_orderd_R = 0
                 Table_2_orderd_T = 0
                 Table_2_orderd_Y = 0
+                Money -= 10
                 b = 0
 
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 1)
@@ -420,6 +424,7 @@ class Customer:
                 Table_2_orderd_R = 0
                 Table_2_orderd_T = 0
                 Table_2_orderd_Y = 0
+                Money -= 10
                 life -= 1
 
         if (Table_3 == 1):
@@ -427,7 +432,7 @@ class Customer:
                 customer_literal_3 = get_time()
                 c = 1
             Table_3_timer = get_time() - customer_literal_3
-            if(Table_3_timer > 15):
+            if(Table_3_timer > 33):
                 life -= 1
                 Table_3 = 0
                 Table_3_orderd_Q = 0
@@ -436,6 +441,7 @@ class Customer:
                 Table_3_orderd_R = 0
                 Table_3_orderd_T = 0
                 Table_3_orderd_Y = 0
+                Money -= 10
                 c = 0
 
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 1)
@@ -462,13 +468,14 @@ class Customer:
                 Table_3_orderd_R = 0
                 Table_3_orderd_T = 0
                 Table_3_orderd_Y = 0
+                Money -= 10
                 life -= 1
         if (Table_4 == 1):
             if (d == 0):
                 customer_literal_4 = get_time()
                 d = 1
             Table_4_timer = get_time() - customer_literal_4
-            if(Table_4_timer > 15):
+            if(Table_4_timer > 33):
                 life -= 1
                 Table_4 = 0
                 Table_4_orderd_Q = 0
@@ -477,6 +484,7 @@ class Customer:
                 Table_4_orderd_R = 0
                 Table_4_orderd_T = 0
                 Table_4_orderd_Y = 0
+                Money -= 10
                 d = 0
 
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 0, 150 + 150 * 0)
@@ -503,13 +511,14 @@ class Customer:
                 Table_4_orderd_R = 0
                 Table_4_orderd_T = 0
                 Table_4_orderd_Y = 0
+                Money -= 10
                 life -= 1
         if (Table_5 == 1):
             if (e == 0):
                 customer_literal_5 = get_time()
                 e = 1
             Table_5_timer = get_time() - customer_literal_5
-            if(Table_5_timer > 15):
+            if(Table_5_timer > 33):
                 life -= 1
                 Table_5 = 0
                 Table_5_orderd_Q = 0
@@ -518,6 +527,7 @@ class Customer:
                 Table_5_orderd_R = 0
                 Table_5_orderd_T = 0
                 Table_5_orderd_Y = 0
+                Money -= 10
                 e = 0
 
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 1, 150 + 150 * 0)
@@ -544,13 +554,14 @@ class Customer:
                 Table_5_orderd_R = 0
                 Table_5_orderd_T = 0
                 Table_5_orderd_Y = 0
+                Money -= 10
                 life -= 1
         if (Table_6 == 1):
             if (f == 0):
                 customer_literal_6 = get_time()
                 f = 1
             Table_6_timer = get_time() - customer_literal_6
-            if(Table_6_timer > 15):
+            if(Table_6_timer > 33):
                 life -= 1
                 Table_6 = 0
                 Table_6_orderd_Q = 0
@@ -559,6 +570,7 @@ class Customer:
                 Table_6_orderd_R = 0
                 Table_6_orderd_T = 0
                 Table_6_orderd_Y = 0
+                Money -= 10
                 e = 0
 
             self.image.clip_draw(int(customer_frame) * 100, 100, 100, 100, 100 + 300 * 2, 150 + 150 * 0)
@@ -585,6 +597,7 @@ class Customer:
                 Table_6_orderd_R = 0
                 Table_6_orderd_T = 0
                 Table_6_orderd_Y = 0
+                Money -= 10
                 life -= 1
 
 

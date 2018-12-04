@@ -10,7 +10,7 @@ image2 = None
 image3 = None
 CX = 0
 CY = 0
-
+CHEAT = 0
 def enter():
     global image, image2, image3
     image = load_image('main2.png')
@@ -26,7 +26,7 @@ def exit():
 
 def handle_events():
     events = get_events()
-    global CX, CY
+    global CX, CY, CHEAT
     for event in events:
         if event.type == SDL_QUIT:
             game_framework.quit()
@@ -36,6 +36,9 @@ def handle_events():
             #print("CY =", CY)
         else:
             if ((event.type == SDL_MOUSEBUTTONDOWN) and (150 <= CX <= 250 and 35 <= CY <= 65)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_SPACE)):
+                game_framework.change_state(tutorial_state)
+            if ((event.type, event.key) == (SDL_KEYDOWN, SDLK_c)):
+                CHEAT = 1
                 game_framework.change_state(tutorial_state)
             if ((event.type == SDL_MOUSEBUTTONDOWN) and (550 <= CX <= 650 and 35 <= CY <= 65)) or ((event.type, event.key) == (SDL_KEYDOWN, SDLK_ESCAPE)):
                 game_framework.quit()
